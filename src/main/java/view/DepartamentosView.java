@@ -8,22 +8,22 @@ import model.Empleado;
 
 public class DepartamentosView {
 
-	final List<String> opciones = List.of("buscar por Código", "buscar por Nombre", "Mostrar", "Añadir", "modiFicar",
+	static final List<String> OPCIONES = List.of("buscar por Código", "buscar por Nombre", "Mostrar", "Añadir", "modiFicar",
 			"Eliminar", "Salir");
 
-	public Character getOption() {
-		IO.println("Departamentos: " + opciones);
+	static public Character getOption() {
+		IO.println("Departamentos: " + OPCIONES);
 		return Character.toUpperCase(IO.readChar());
 	}
 
-	public Departamento anadir() {
+	static public Departamento anadir() {
 		IO.print("Nombre ? ");
 		String nombre = IO.readString();
 		Departamento d = Departamento.builder().nombre(nombre).build();
 		return d;
 	}
 
-	public Departamento modificar(Departamento d) {
+	static public Departamento modificar(Departamento d) {
 		if (d == null) {
 			IO.println("No se ha encontrado el departamento");
 			return null;
@@ -41,23 +41,23 @@ public class DepartamentosView {
 		return d;
 	}
 
-	public String buscarPorInicioDelNombre() {
+	static public String buscarPorInicioDelNombre() {
 		IO.print("El nombre empieza por ? ");
 		return IO.readString();
 	}
 
-	public int buscarPorCodigo() {
+	static public int buscarPorCodigo() {
 		IO.print("Código ? ");
 		return IO.readInt();
 	}
 
-	public void mostrar(List<Departamento> list) {
+	static public void mostrar(List<Departamento> list) {
 		for (Departamento d : list) {
 			IO.println(d.show());
 		}
 	}
 
-	public void mostrar(Departamento d, List<Empleado> emps) {
+	static public void mostrar(Departamento d, List<Empleado> emps) {
 		if (d == null) {
 			return;
 		}
@@ -68,7 +68,7 @@ public class DepartamentosView {
 		}
 	}
 
-	public void result(String msg) {
+	static public void result(String msg) {
 		IO.println(msg);
 	}
 

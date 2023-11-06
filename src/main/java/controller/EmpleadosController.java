@@ -12,16 +12,14 @@ public class EmpleadosController {
 	private final Logger logger = Logger.getLogger(this.getClass().getName());
 
 	private final EmpleadoDao dao;
-	private final EmpleadosView view;
 
 	public EmpleadosController() {
 		dao = new EmpleadoDao();
-		view = new EmpleadosView();
 	}
 	
 	public void menu() {
 		while (true) {
-			Character opt = view.getOption();
+			Character opt = EmpleadosView.getOption();
 			switch (opt) {
 			case 'C':
 				getById();
@@ -49,55 +47,55 @@ public class EmpleadosController {
 	}
 
 	private void getByStartsName() {
-		String inicio = view.buscarPorInicioDelNombre();
+		String inicio = EmpleadosView.buscarPorInicioDelNombre();
 		logger.info("Obteniendo Empleados que empiezan por " + inicio);
 		List<Empleado> list = dao.findByName(inicio + "%");
-		view.mostrar(list);		
+		EmpleadosView.mostrar(list);		
 	}
 
 	private void getById() {
-		Integer id = view.buscarPorCodigo();
+		Integer id = EmpleadosView.buscarPorCodigo();
 		logger.info("Obteniendo Empleado con id: " + id);
 		Empleado entity = dao.findById(id);
 		if (entity != null) {
-			view.mostrar(entity);
+			EmpleadosView.mostrar(entity);
 		}
 	}
 	
 	private void getAll() {
 		logger.info("Obteniendo Empleados");
 		List<Empleado> list = dao.findAll();
-		view.mostrar(list);
+		EmpleadosView.mostrar(list);
 	}
 
 	private void create() {
 		logger.info("Creando Empleado");
-		Empleado entity = view.anadir();
+		Empleado entity = EmpleadosView.anadir();
 		boolean anadido = dao.create(entity);
-		view.result(anadido ? "Añadido" : "No se ha podido añadir");
+		EmpleadosView.result(anadido ? "Añadido" : "No se ha podido añadir");
 	}
 
 	private void update() {
 		boolean modificado = false;
-		Integer id = view.buscarPorCodigo();
+		Integer id = EmpleadosView.buscarPorCodigo();
 		logger.info("Actualizando Empleado con id: " + id);
 		Empleado entity = dao.findById(id);
 		Empleado d = null;
 		if (entity != null) {
-			d = view.modificar(entity);
+			d = EmpleadosView.modificar(entity);
 			modificado = dao.update(d);
 		}
-		view.result(modificado ? "Modificado" : "No se ha podido modificar");
+		EmpleadosView.result(modificado ? "Modificado" : "No se ha podido modificar");
 	}
 
 	private void delete() {
 		boolean borrado = false;
-		Integer id = view.buscarPorCodigo();
+		Integer id = EmpleadosView.buscarPorCodigo();
 		logger.info("Eliminando Empleado con id: " + id);
 		Empleado entity = dao.findById(id);
 		if (entity != null) {
 			borrado = dao.delete(id);
 		}
-		view.result(borrado ? "Borrado" : "No se ha podido borrar");
+		EmpleadosView.result(borrado ? "Borrado" : "No se ha podido borrar");
 	}
 }

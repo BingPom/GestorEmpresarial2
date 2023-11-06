@@ -9,7 +9,7 @@ import model.Empleado;
 
 public class EmpleadosView {
 	
-	final List<String> opciones = List.of( 
+	static final List<String> OPCIONES = List.of( 
 			"buscar por Código", 
 			"buscar por Nombre", 
 			"Mostrar", 
@@ -18,12 +18,12 @@ public class EmpleadosView {
 			"Eliminar",
 			"Salir");
 	
-	public Character getOption() {
-		IO.println("Empleados: " + opciones);
+	static public Character getOption() {
+		IO.println("Empleados: " + OPCIONES);
 		return Character.toUpperCase(IO.readChar());
 	}
 
-	public Empleado anadir() {
+	static public Empleado anadir() {
 		IO.print("Nombre ? ");
 		String nombre = IO.readString();
 		IO.print("Salario ? ");
@@ -38,7 +38,7 @@ public class EmpleadosView {
 		return e;
 	}
 
-	public Empleado modificar(Empleado e) {
+	static public Empleado modificar(Empleado e) {
 		IO.printf("Nombre [%s] ? ", e.getNombre());
 		String nombre = IO.readString();
 		if (!nombre.isBlank()) {
@@ -63,30 +63,30 @@ public class EmpleadosView {
 		return e;
 	}
 
-	public String buscarPorInicioDelNombre() {
+	static public String buscarPorInicioDelNombre() {
 		IO.print("El nombre empieza por ? ");
 		return IO.readString();
 	}
 
-	public int buscarPorCodigo() {		
+	static public int buscarPorCodigo() {		
 		IO.print("Código ? ");
 		return IO.readInt();
 	}
 
-	public void mostrar(List<Empleado> list) {
+	static public void mostrar(List<Empleado> list) {
 		for (Empleado e : list) {
 			IO.println(e.show());
 		}
 	}
 	
-	public void mostrar(Empleado e) {
+	static public void mostrar(Empleado e) {
 		if (e == null) {
 			return;
 		}
 		IO.println(e.show());
 	}
 	
-	public void result(String msg) {
+	static public void result(String msg) {
 		IO.println(msg);
 	}
 
