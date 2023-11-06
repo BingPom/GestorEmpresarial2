@@ -68,7 +68,6 @@ public class MenuEmpleado {
 		Empleado e = Empleado.builder()
 				.nombre(nombre)
 				.salario(salario)
-				.nacido(nacido)
 				.build();
 		boolean anadido = dao.create(e);
 		IO.println(anadido ? "Añadido" : "No se ha podido añadir");
@@ -91,11 +90,6 @@ public class MenuEmpleado {
 		Double salario = IO.readDoubleOrNull();
 		if (salario != null) {
 			emp.setSalario(salario);
-		}
-		IO.printf("Nacido (aaaa-mm-dd) [%s] ? ", emp.getNacido());
-		LocalDate nacido = IO.readLocalDateOrNull();
-		if (nacido != null) {
-			emp.setNacido(nacido);
 		}
 		IO.printf("Departamento [%s] ? ", emp.getDepartamento().show());
 		Integer departamento = IO.readIntOrNull();

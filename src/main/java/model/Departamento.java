@@ -1,5 +1,14 @@
 package model;
 
+import java.util.HashSet;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,18 +18,27 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "Departamento")
 public class Departamento {
-	
-	Integer id; 
-	String nombre; 
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Integer id;
+	String nombre;
+
+	@OneToOne(mappedBy = "jefe")
 	Empleado jefe;
-	
+
+	@OneToMany(mappedBy = "departamento")
+	HashSet<Empleado> empleados;
+
 	/**
 	 * Devuelve representación de un departamento
 	 * 
 	 * @return string
 	 */
-	public String show() {		
+	public String show() {
 		if (id == 0) {
 			return "no departamento!!!";
 		}
@@ -32,7 +50,7 @@ public class Departamento {
 		} else {
 			sb.append(String.format("jefe [%2d:%s]", jefe.getId(), jefe.getNombre()));
 		}
-		
+
 		return sb.toString();
 	}
 
