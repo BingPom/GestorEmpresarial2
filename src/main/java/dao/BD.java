@@ -96,9 +96,13 @@ public class BD {
 							id INTEGER PRIMARY KEY AUTOINCREMENT,
 							nombre TEXT UNIQUE NOT NULL,
 							salario REAL DEFAULT 0.0,
-							nacido TEXT DEFAULT NULL,
 							departamento INTEGER DEFAULT NULL
 						)
+					""");
+			sqls.add("""
+						CREATE TABLE IF NOT EXISTS empleado (
+							id INTEGER PRIMARY KEY AUTOINCREMENT,
+							nombre TEXT UNIQUE NOT NULL,
 					""");
 		}
 		if (BD.typeDB.equals("mariadb")) {
@@ -114,7 +118,6 @@ public class BD {
 						  id INT PRIMARY KEY AUTO_INCREMENT,
 						  nombre VARCHAR(255) UNIQUE NOT NULL,
 						  salario DECIMAL(10, 2) DEFAULT 0.0,
-						  nacido DATE,
 						  departamento INT
 						)
 					""");
