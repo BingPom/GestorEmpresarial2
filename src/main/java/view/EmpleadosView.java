@@ -33,7 +33,6 @@ public class EmpleadosView {
 		Empleado e = Empleado.builder()
 				.nombre(nombre)
 				.salario(salario)
-				.nacido(nacido)
 				.build();
 		return e;
 	}
@@ -49,11 +48,7 @@ public class EmpleadosView {
 		if (salario != null) {
 			e.setSalario(salario);
 		}
-		IO.printf("Nacido (aaaa-mm-dd) [%s] ? ", e.getNacido());
-		LocalDate nacido = IO.readLocalDateOrNull();
-		if (nacido != null) {
-			e.setNacido(nacido);
-		}
+
 		Departamento d = e.getDepartamento();
 		IO.printf("Departamento [%s] ? ", d == null ? "sin departamento!!!" : d.show());
 		Integer departamento = IO.readIntOrNull();

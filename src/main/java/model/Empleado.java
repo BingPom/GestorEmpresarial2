@@ -2,6 +2,15 @@ package model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,13 +20,22 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "Empleado")
 public class Empleado {
-	
-	Integer id; 
-	String nombre; 
-	Double salario; 
-	LocalDate nacido;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Integer id;
+	String nombre;
+	Double salario;
+
+	@ManyToOne()
+	@JoinColumn(name = "departamento")
 	Departamento departamento;
+
+	@ManyToMany(cascade = { CascadeType.ALL })
+	HashSet<Proyecto> proyectos;
 
 	/**
 	 * Devuelve representación de un empleado
@@ -30,21 +48,16 @@ public class Empleado {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		
-		sb.append(String.format("%2d:%-20s:%4.2f:", id, nombre, salario));
-		if (nacido == null) {
-			sb.append("sin fecha de nacimiento!!");
-		} else {
-			sb.append(String.format("%s", nacido));
-		}
+
+		sb.append(String.format("%2d:%20s:%4.2f:", id, nombre, salario));
 		sb.append(":");
 		if (departamento == null || departamento.getNombre() == null) {
 			sb.append("sin departamento!!");
 		} else {
 			sb.append(String.format("Departamento [%2d:%s]", departamento.getId(), departamento.getNombre()));
 		}
-		
+
 		return sb.toString();
 	}
-	
+
 }
