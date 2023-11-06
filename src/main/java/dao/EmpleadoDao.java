@@ -115,11 +115,6 @@ public class EmpleadoDao {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, e.getNombre());
 			ps.setDouble(2, e.getSalario());
-			if (e.getNacido() == null) {
-				ps.setString(3, null);
-			} else {
-				ps.setString(3, e.getNacido().toString());
-			}
 			return ps.executeUpdate() > 0;
 		} catch (SQLException ex) {
 		}
@@ -153,7 +148,6 @@ public class EmpleadoDao {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, e.getNombre());
 			ps.setDouble(2, e.getSalario());
-			ps.setString(3, e.getNacido().toString());
 			ps.setInt(4, e.getDepartamento().getId());
 			ps.setInt(5, e.getId());
 			return ps.executeUpdate() > 0;
@@ -203,11 +197,10 @@ public class EmpleadoDao {
 			Integer id = rs.getInt("id");
 			String nombre = rs.getString("nombre");
 			Double salario = rs.getDouble("salario");
-			LocalDate nacido = Util.string2date(rs.getString("nacido"));
 			Integer departamento = rs.getInt("idD");
 			String nombreDepartamento = rs.getString("nombreD");
 			Departamento d = Departamento.builder().id(departamento).nombre(nombreDepartamento).build();
-			return new Empleado(id, nombre, salario, nacido, d);
+			return new Empleado(id, nombre, salario, d);
 		} catch (SQLException e) {
 		}
 		return null;
