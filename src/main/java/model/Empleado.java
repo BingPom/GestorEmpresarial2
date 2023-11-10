@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "Empleado")
+@NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e")
+@NamedQuery(name = "Empleado.finByDepartamentoId", query = "SELECT e FROM Empleado e WHERE e.departamento.id = ?1")
+@NamedQuery(name = "Empleado.findByProyectoId", query = "")
 public class Empleado {
 
 	@Id

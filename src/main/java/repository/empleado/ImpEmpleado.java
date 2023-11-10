@@ -2,24 +2,49 @@ package repository.empleado;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import dao.HibernateManager;
+import jakarta.persistence.TypedQuery;
 import model.Empleado;
 
 public class ImpEmpleado implements EmpleadoRepository {
+	private final Logger logger = Logger.getLogger(ImpEmpleado.class.getName());
 
 	@Override
 	public Boolean create(Empleado entity) {
-		HibernateManager hbManager = HibernateManager.getInstance();
-		hbManager.open();
-		
+		logger.info("create()");
+		HibernateManager manager = HibernateManager.getInstance();
+		manager.open();
+		manager.getTransaction().begin();
+		try {
+			manager.getManager().merge(entity);
+			manager.getTransaction().commit();
+			manager.close();
+
+			return true;
+		} catch (Exception e) {
+			// taca
+		} finally {
+			// si sigue activa es porque ha fallado algo, asi que rollback
+			if (manager.getTransaction().isActive())
+				manager.getTransaction().rollback();
+		}
+
 		return false;
 	}
 
 	@Override
 	public List<Empleado> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		logger.info("findAll");
+		HibernateManager manager = HibernateManager.getInstance();
+		manager.open();
+
+		TypedQuery<Empleado> query = manager.getManager().createNamedQuery("Empleado.findAll", Empleado.class);
+		List<Empleado> list = query.getResultList();
+		manager.close();
+
+		return list;
 	}
 
 	@Override
@@ -36,7 +61,25 @@ public class ImpEmpleado implements EmpleadoRepository {
 
 	@Override
 	public Boolean delete(Empleado entity) {
-		// TODO Auto-generated method stub
+		logger.info("delete");
+
+		HibernateManager manager = HibernateManager.getInstance();
+		manager.open();
+
+		try {
+			manager.getTransaction().begin();
+			// entity = manager.getManager().find(Empleado.class, entity.getId());
+			manager.getManager().remove(entity);
+			manager.getTransaction().commit();
+			manager.close();
+
+			return true;
+		} catch (Exception e) {
+			// taca
+		} finally {
+			if (manager.getTransaction().isActive())
+				manager.getTransaction().rollback();
+		}
 		return false;
 	}
 

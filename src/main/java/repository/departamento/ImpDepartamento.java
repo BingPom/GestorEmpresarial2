@@ -5,12 +5,12 @@ import java.util.Optional;
 
 import model.Departamento;
 
-public class ImpDepartamento implements DepartamentoRepository{
+public class ImpDepartamento implements DepartamentoRepository {
 
 	@Override
 	public Boolean create(Departamento entity) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	@Override
@@ -33,13 +33,13 @@ public class ImpDepartamento implements DepartamentoRepository{
 	@Override
 	public Boolean update(Departamento entity) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	@Override
 	public Boolean delete(Departamento entity) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 }
