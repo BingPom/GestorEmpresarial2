@@ -19,7 +19,7 @@ public class DepartamentosView {
 		return IO.readInt();
 	}
 
-	static public Departamento anadir() {
+	static public Departamento add() {
 		IO.print("Nombre ? ");
 		String nombre = IO.readString();
 		Departamento d = Departamento.builder().nombre(nombre).build();
@@ -69,6 +69,12 @@ public class DepartamentosView {
 		IO.println("* Empleados del departamento :");
 		for (Empleado e : emps) {
 			IO.println(e.show());
+		}
+	}
+	
+	static public void mostrar(List<Departamento> list) {
+		for (Departamento d : list) {
+			IO.println(d.show());
 		}
 	}
 

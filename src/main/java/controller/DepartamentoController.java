@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import dao.DepartamentoDao_deprecated;
 import model.Departamento;
@@ -69,38 +70,33 @@ public class DepartamentoController {
 
 	private void getAll() {
 		logger.info("Obteniendo Departamentos");
-		List<Departamento> list = dao.findAll();
+		List<Departamento> list = repo.findAll();
 		DepartamentosView.mostrar(list);
 	}
 
 	private void create() {
 		logger.info("Creando Departamento");
-		Departamento entity = DepartamentosView.anadir();
-		boolean anadido = dao.create(entity);
-		DepartamentosView.result(anadido ? "Añadido" : "No se ha podido añadir");
+		Departamento entity = DepartamentosView.add();
+		DepartamentosView.result(repo.create(entity) ? "Añadido" : "No se ha podido añadir");
 	}
 
 	private void update() {
 		boolean actualizado = false;
 		Integer id = DepartamentosView.buscarPorCodigo();
 		logger.info("Actualizando Departamento con id: " + id);
-		Departamento entity = dao.findById(id);
+		Departamento entity = repo.findById(id).stream().collect(Collectors.toList()).get(0);
 		Departamento d = null;
 		if (entity != null) {
 			d = DepartamentosView.modificar(entity);
-			actualizado = dao.update(d);
+			actualizado = repo.update(d);
 		}
 		DepartamentosView.result(actualizado ? "Modificado" : "No se ha podido modificar");
 	}
 
 	private void delete() {
-		boolean borrado = false;
 		Integer id = DepartamentosView.buscarPorCodigo();
 		logger.info("Eliminando Departamento con id: " + id);
-		Departamento entity = dao.findById(id);
-		if (entity != null) {
-			borrado = dao.delete(id);
-		}
-		DepartamentosView.result(borrado ? "Borrado" : "No se ha podido borrar");
+		Departamento entity = repo.findById(id).stream().collect(Collectors.toList()).get(0);
+		DepartamentosView.result(repo.delete(entity) ? "Borrado" : "No se ha podido borrar");
 	}
 }
