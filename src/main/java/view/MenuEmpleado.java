@@ -3,7 +3,7 @@ package view;
 import java.time.LocalDate;
 import java.util.List;
 
-import dao.EmpleadoDao;
+import dao.EmpleadoDao_deprecated;
 import io.IO;
 import model.Departamento;
 import model.Empleado;
@@ -11,7 +11,7 @@ import model.Empleado;
 public class MenuEmpleado {
 	
 	public static void menu() {
-		EmpleadoDao dao = new EmpleadoDao();
+		EmpleadoDao_deprecated dao = new EmpleadoDao_deprecated();
 		
 		List<String> opciones = List.of( 
 				"buscar por Código", 
@@ -51,14 +51,14 @@ public class MenuEmpleado {
 		
 	}
 
-	private static void borrar(EmpleadoDao dao) {
+	private static void borrar(EmpleadoDao_deprecated dao) {
 		IO.print("Código ? ");
 		Integer id = IO.readInt();
 		boolean borrado = dao.delete(id);
 		IO.println(borrado ? "Borrado" : "No se ha podido borrar");
 	}
 
-	private static void anadir(EmpleadoDao dao) {
+	private static void anadir(EmpleadoDao_deprecated dao) {
 		IO.print("Nombre ? ");
 		String nombre = IO.readString();
 		IO.print("Salario ? ");
@@ -73,7 +73,7 @@ public class MenuEmpleado {
 		IO.println(anadido ? "Añadido" : "No se ha podido añadir");
 	}
 
-	private static void modificar(EmpleadoDao dao) {
+	private static void modificar(EmpleadoDao_deprecated dao) {
 		IO.print("Código del empleado a modificar ? ");
 		Integer id = IO.readInt();
 		Empleado emp = dao.findById(id);
@@ -100,13 +100,13 @@ public class MenuEmpleado {
 		IO.println(anadido ? "Modificado" : "No se ha podido modificar");		
 	}
 
-	private static void mostrar(EmpleadoDao dao) {
+	private static void mostrar(EmpleadoDao_deprecated dao) {
 		for (Empleado e : dao.findAll()) {
 			IO.println(e.show());
 		}
 	}
 
-	private static void buscarPorInicioDelNombre(EmpleadoDao dao) {
+	private static void buscarPorInicioDelNombre(EmpleadoDao_deprecated dao) {
 		IO.print("El nombre empieza por ? ");
 		String inicio = IO.readString();
 		for (Empleado e : dao.findByName(inicio)) {
@@ -114,7 +114,7 @@ public class MenuEmpleado {
 		}
 	}
 
-	private static void buscarPorCodigo(EmpleadoDao dao) {
+	private static void buscarPorCodigo(EmpleadoDao_deprecated dao) {
 		IO.print("Código ? ");
 		Integer id = IO.readInt();
 		Empleado e = dao.findById(id);

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class BD {
+public class BD_deprecated {
 
 	/**
 	 * Conector a la base de datos
@@ -27,7 +27,7 @@ public class BD {
 	 * 
 	 * Establece una conexión con la base de datos
 	 */
-	private BD() {
+	private BD_deprecated() {
 		try {
 			Properties prop = new Properties();
 			prop.load(new FileReader("database.properties"));
@@ -53,7 +53,7 @@ public class BD {
 	 */
 	public static Connection getConnection() {
 		if (conn == null) {
-			new BD();
+			new BD_deprecated();
 		}
 		return conn;
 	}
@@ -83,7 +83,7 @@ public class BD {
 	 */
 	private void createTables() {
 		List<String> sqls = new ArrayList<String>();
-		if (BD.typeDB.equals("sqlite")) {
+		if (BD_deprecated.typeDB.equals("sqlite")) {
 			sqls.add("""
 						CREATE TABLE IF NOT EXISTS departamento (
 							id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -105,7 +105,7 @@ public class BD {
 							nombre TEXT UNIQUE NOT NULL,
 					""");
 		}
-		if (BD.typeDB.equals("mariadb")) {
+		if (BD_deprecated.typeDB.equals("mariadb")) {
 			sqls.add("""
 						CREATE TABLE IF NOT EXISTS departamento (
 						  id INT PRIMARY KEY AUTO_INCREMENT,

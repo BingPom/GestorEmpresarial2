@@ -10,8 +10,9 @@ public class Controller {
 
 	public Controller() {
 		
-		DepartamentosController departamento = new DepartamentosController();
-		EmpleadosController empleado = new EmpleadosController();
+		DepartamentoController departamento = new DepartamentoController();
+		EmpleadoController empleado = new EmpleadoController();
+		ProyectoController proyecto = new ProyectoController();
 		
 		List<String> menu = List.of("Seleccione una opción", "1. Empleado",
 								"2. Departamento", "3. Proyecto", "4. Salir");
@@ -27,7 +28,7 @@ public class Controller {
 					departamento.menu();
 					break;
 				case 3:
-					
+					proyecto.menu();
 					break;
 				case 4:
 					return;

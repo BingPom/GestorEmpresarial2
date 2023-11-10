@@ -2,7 +2,7 @@ package view;
 
 import java.util.List;
 
-import dao.BD;
+import dao.BD_deprecated;
 import io.IO;
 
 public class Menu {
@@ -24,7 +24,7 @@ public class Menu {
 				MenuDepartamento.menu();
 				break;
 			case 'S':
-				BD.close();
+				BD_deprecated.close();
 				return;
 			default:
 			}

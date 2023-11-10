@@ -3,18 +3,18 @@ package controller;
 import java.util.List;
 import java.util.logging.Logger;
 
-import dao.EmpleadoDao;
+import dao.EmpleadoDao_deprecated;
 import model.Empleado;
 
 import view.EmpleadosView;
 
-public class EmpleadosController {
+public class EmpleadoController {
 	private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-	private final EmpleadoDao dao;
+	private final EmpleadoDao_deprecated dao;
 
-	public EmpleadosController() {
-		dao = new EmpleadoDao();
+	public EmpleadoController() {
+		dao = new EmpleadoDao_deprecated();
 	}
 	
 	public void menu() {

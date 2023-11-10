@@ -12,7 +12,7 @@ import model.Departamento;
 import model.Empleado;
 import util.Util;
 
-public class EmpleadoDao {
+public class EmpleadoDao_deprecated {
 
 	private Connection conn = null;
 
@@ -30,15 +30,15 @@ public class EmpleadoDao {
 	/**
 	 * Constructor
 	 */
-	public EmpleadoDao() {
-		conn = BD.getConnection();
+	public EmpleadoDao_deprecated() {
+		conn = BD_deprecated.getConnection();
 	}
 
 	/**
 	 * Cierra la conexión
 	 */
 	public void close() {
-		BD.close();
+		BD_deprecated.close();
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class EmpleadoDao {
 			// Si el empleado era jefe de otro departamento lo quito de jefe
 			Empleado oldE = findById(e.getId());
 			if (oldE.getDepartamento().getId() != e.getDepartamento().getId()) {
-				DepartamentoDao daoD = new DepartamentoDao();
+				DepartamentoDao_deprecated daoD = new DepartamentoDao_deprecated();
 				Departamento d = daoD.findById(oldE.getDepartamento().getId());
 				if (d != null && d.getJefe() != null && d.getJefe().getId() == e.getId()) {
 					d.setJefe(null);

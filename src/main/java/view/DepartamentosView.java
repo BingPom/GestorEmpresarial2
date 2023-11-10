@@ -1,6 +1,8 @@
 package view;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import io.IO;
 import model.Departamento;
@@ -8,12 +10,13 @@ import model.Empleado;
 
 public class DepartamentosView {
 
-	static final List<String> OPCIONES = List.of("buscar por Código", "buscar por Nombre", "Mostrar", "Añadir", "modiFicar",
-			"Eliminar", "Salir");
+	static final List<String> OPCIONES = List.of("1. Buscar por Id", "2. Buscar por nombre", "3. Listar todos",
+			"4. Añadir un departamento", "5. Actualizar los datos de un departamentos", "6. Borrar un departamento",
+			"7. Salir");
 
-	static public Character getOption() {
+	static public Integer getOption() {
 		IO.println("Departamentos: " + OPCIONES);
-		return Character.toUpperCase(IO.readChar());
+		return IO.readInt();
 	}
 
 	static public Departamento anadir() {
@@ -51,8 +54,9 @@ public class DepartamentosView {
 		return IO.readInt();
 	}
 
-	static public void mostrar(List<Departamento> list) {
-		for (Departamento d : list) {
+	static public void mostrar(Optional<Departamento> list) {
+		List<Departamento> list_l = list.stream().collect(Collectors.toList());
+		for (Departamento d : list_l) {
 			IO.println(d.show());
 		}
 	}

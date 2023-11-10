@@ -24,6 +24,11 @@ public class ImpDepartamento implements DepartamentoRepository{
 		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
+	
+	public Optional<Departamento> findByName(String str) {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
 
 	@Override
 	public Boolean update(Departamento entity) {

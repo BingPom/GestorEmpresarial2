@@ -2,8 +2,8 @@ package view;
 
 import java.util.List;
 
-import dao.DepartamentoDao;
-import dao.EmpleadoDao;
+import dao.DepartamentoDao_deprecated;
+import dao.EmpleadoDao_deprecated;
 import io.IO;
 import model.Departamento;
 import model.Empleado;
@@ -12,7 +12,7 @@ public class MenuDepartamento {
 	
 	public static void menu() {
 		
-		DepartamentoDao dao = new DepartamentoDao();
+		DepartamentoDao_deprecated dao = new DepartamentoDao_deprecated();
 		
 		List<String> opciones = List.of( 
 				"buscar por Código", 
@@ -52,14 +52,14 @@ public class MenuDepartamento {
 		
 	}
 
-	private static void borrar(DepartamentoDao dao) {
+	private static void borrar(DepartamentoDao_deprecated dao) {
 		IO.print("Código ? ");
 		Integer id = IO.readInt();
 		boolean borrado = dao.delete(id);
 		IO.println(borrado ? "Borrado" : "No se ha podido borrar");
 	}
 
-	private static void anadir(DepartamentoDao dao) {
+	private static void anadir(DepartamentoDao_deprecated dao) {
 		IO.print("Nombre ? ");
 		String nombre = IO.readString();		
 		Departamento d = Departamento.builder().nombre(nombre).build();		
@@ -67,7 +67,7 @@ public class MenuDepartamento {
 		IO.println(anadido ? "Añadido" : "No se ha podido añadir");
 	}
 
-	private static void modificar(DepartamentoDao dao) {
+	private static void modificar(DepartamentoDao_deprecated dao) {
 		IO.print("Código del departamento a modificar ? ");
 		Integer id = IO.readInt();
 		Departamento d = dao.findById(id);
@@ -83,20 +83,20 @@ public class MenuDepartamento {
 		IO.printf("Jefe [%s] ? ", d.getJefe().show());
 		Integer jefe = IO.readIntOrNull();
 		if (jefe != null) {
-			EmpleadoDao daoEmpleado = new EmpleadoDao();
+			EmpleadoDao_deprecated daoEmpleado = new EmpleadoDao_deprecated();
 			d.setJefe(daoEmpleado.findById(jefe));
 		}
 		boolean anadido = dao.update(d);
 		IO.println(anadido ? "Modificado" : "No se ha podido modificar");		
 	}
 
-	private static void mostrar(DepartamentoDao dao) {
+	private static void mostrar(DepartamentoDao_deprecated dao) {
 		for (Departamento d : dao.findAll()) {
 			IO.println(d.show());
 		}
 	}
 
-	private static void buscarPorInicioDelNombre(DepartamentoDao dao) {
+	private static void buscarPorInicioDelNombre(DepartamentoDao_deprecated dao) {
 		IO.print("El nombre empieza por ? ");
 		String inicio = IO.readString();
 		for (Departamento d : dao.findByName(inicio)) {
@@ -104,7 +104,7 @@ public class MenuDepartamento {
 		}
 	}
 
-	private static void buscarPorCodigo(DepartamentoDao dao) {
+	private static void buscarPorCodigo(DepartamentoDao_deprecated dao) {
 		IO.print("Código ? ");
 		Integer id = IO.readInt();
 		Departamento d = dao.findById(id);

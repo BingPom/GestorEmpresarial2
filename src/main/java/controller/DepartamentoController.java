@@ -1,45 +1,49 @@
 package controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
-import dao.DepartamentoDao;
+import dao.DepartamentoDao_deprecated;
 import model.Departamento;
-
+import repository.departamento.ImpDepartamento;
 import view.DepartamentosView;
 
-public class DepartamentosController {
+public class DepartamentoController {
 	private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-	private final DepartamentoDao dao;
-
-	public DepartamentosController() {
-		dao = new DepartamentoDao();
-	}
+	private final ImpDepartamento repo;
 	
+	private final DepartamentoDao_deprecated dao;
+
+	public DepartamentoController() {
+		dao = new DepartamentoDao_deprecated();
+		repo = new ImpDepartamento();
+	}
+
 	public void menu() {
 		while (true) {
-			Character opt = DepartamentosView.getOption();
+			int opt = DepartamentosView.getOption();
 			switch (opt) {
-			case 'C':
+			case 1:
 				getById();
 				break;
-			case 'N':
+			case 2:
 				getByStartsName();
 				break;
-			case 'M':
+			case 3:
 				getAll();
 				break;
-			case 'A':
+			case 4:
 				create();
 				break;
-			case 'F':
+			case 5:
 				update();
 				break;
-			case 'E':
+			case 6:
 				delete();
 				break;
-			case 'S':
+			case 7:
 				return;
 			default:
 			}
@@ -49,19 +53,20 @@ public class DepartamentosController {
 	private void getByStartsName() {
 		String inicio = DepartamentosView.buscarPorInicioDelNombre();
 		logger.info("Obteniendo Departamentos que empiezan por " + inicio);
-		List<Departamento> list = dao.findByName(inicio + "%");
-		DepartamentosView.mostrar(list);		
+		Optional<Departamento> list = repo.findByName(inicio + "%");
+		DepartamentosView.mostrar(list);
 	}
 
 	private void getById() {
 		Integer id = DepartamentosView.buscarPorCodigo();
 		logger.info("Obteniendo Departamento con id: " + id);
-		Departamento entity = dao.findById(id);
-		if (entity != null) {
-			DepartamentosView.mostrar(entity, dao.getEmpleados(id));
-		}
+//		var entity = repo.findById(id);
+//		entity.ifPresent(DepartamentosView::mostrar);
+//		if (entity != null) {
+//			DepartamentosView.mostrar(entity, dao.getEmpleados(id));
+//		}
 	}
-	
+
 	private void getAll() {
 		logger.info("Obteniendo Departamentos");
 		List<Departamento> list = dao.findAll();
@@ -71,7 +76,7 @@ public class DepartamentosController {
 	private void create() {
 		logger.info("Creando Departamento");
 		Departamento entity = DepartamentosView.anadir();
-		boolean anadido  = dao.create(entity);
+		boolean anadido = dao.create(entity);
 		DepartamentosView.result(anadido ? "Añadido" : "No se ha podido añadir");
 	}
 
