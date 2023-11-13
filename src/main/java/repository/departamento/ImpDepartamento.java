@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import dao.HibernateManager;
 import jakarta.persistence.TypedQuery;
 import model.Departamento;
-import model.Empleado;
 
 public class ImpDepartamento implements DepartamentoRepository {
 	private final Logger logger = Logger.getLogger(ImpDepartamento.class.getName());

@@ -70,11 +70,6 @@ public class ImpEmpleado implements EmpleadoRepository {
 
 		return list;
 	}
-	
-	public List<Empleado> findByName(String str) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Boolean update(Empleado entity) {
