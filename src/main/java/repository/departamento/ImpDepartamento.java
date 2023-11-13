@@ -25,9 +25,9 @@ public class ImpDepartamento implements DepartamentoRepository {
 		return Optional.empty();
 	}
 	
-	public Optional<Departamento> findByName(String str) {
+	public List<Departamento> findByName(String str) {
 		// TODO Auto-generated method stub
-		return Optional.empty();
+		return null;
 	}
 
 	@Override

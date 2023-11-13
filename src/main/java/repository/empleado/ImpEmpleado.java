@@ -52,6 +52,11 @@ public class ImpEmpleado implements EmpleadoRepository {
 		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
+	
+	public List<Empleado> findByName(String str) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public Boolean update(Empleado entity) {

@@ -1,6 +1,5 @@
 package view;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import io.IO;
@@ -10,13 +9,13 @@ import model.Empleado;
 public class EmpleadosView {
 	
 	static final List<String> OPCIONES = List.of( 
-			"buscar por Código", 
-			"buscar por Nombre", 
-			"Mostrar", 
-			"Añadir",
-			"modiFicar",
-			"Eliminar",
-			"Salir");
+			"1. Buscar por Id", 
+			"2. Buscar por nombre", 
+			"3. Listar todos",
+			"4. Añadir un empleado", 
+			"5. Actualizar los datos de un empleado", 
+			"6. Borrar un empleado",
+			"7. Salir");
 	
 	static public Character getOption() {
 		IO.println("Empleados: " + OPCIONES);
@@ -28,8 +27,6 @@ public class EmpleadosView {
 		String nombre = IO.readString();
 		IO.print("Salario ? ");
 		Double salario = IO.readDoubleOrNull();
-		IO.print("Nacido (aaaa-mm-dd) ? ");
-		LocalDate nacido = IO.readLocalDateOrNull();
 		Empleado e = Empleado.builder()
 				.nombre(nombre)
 				.salario(salario)
