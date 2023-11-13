@@ -18,7 +18,7 @@ public class Controller {
 								"2. Departamento", "3. Proyecto", "4. Salir");
 		
 		while (true) {
-			Character opt = View.getOption();
+			int opt = View.getOption();
 			logger.info(mainMenu.toString());
 			switch (opt) {
 				case 1:

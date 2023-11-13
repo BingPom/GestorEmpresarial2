@@ -200,7 +200,7 @@ public class EmpleadoDao_deprecated {
 			Integer departamento = rs.getInt("idD");
 			String nombreDepartamento = rs.getString("nombreD");
 			Departamento d = Departamento.builder().id(departamento).nombre(nombreDepartamento).build();
-			return new Empleado(id, nombre, salario, d);
+			return new Empleado(id, nombre, salario, d, null);
 		} catch (SQLException e) {
 		}
 		return null;

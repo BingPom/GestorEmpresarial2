@@ -203,7 +203,7 @@ public class DepartamentoDao_deprecated {
 			Integer jefe = rs.getInt("jefe");
 			String nombreJefe = rs.getString("nombreJefe");
 			Empleado e = Empleado.builder().id(jefe).nombre(nombreJefe).build();
-			return new Departamento(id, nombre, e);
+			return new Departamento(id, nombre, e, null);
 		} catch (SQLException e) {
 		}
 		return null;
@@ -234,7 +234,6 @@ public class DepartamentoDao_deprecated {
 						.id(rs.getInt("id"))
 						.nombre(rs.getString("nombre"))
 						.salario(rs.getDouble("salario"))
-						.nacido(Util.string2date(rs.getString("nacido")))
 						.departamento(d)
 						.build();
 				emps.add(e);
