@@ -24,8 +24,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Empleado")
 @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e")
-@NamedQuery(name = "Empleado.finByDepartamentoId", query = "SELECT e FROM Empleado e WHERE e.departamento.id = ?1")
-@NamedQuery(name = "Empleado.findByProyectoId", query = "")
+@NamedQuery(name = "Empleado.findByDepartamentoId", query = "SELECT e FROM Empleado e WHERE e.departamento.id = ?1")
+@NamedQuery(name = "Empleado.findByProyectoId", query = "SELECT e FROM Empleado e WHERE SELECT FROM e.proyectos.id = ?1")
+@NamedQuery(name = "Empleado.findByName", query = "SELECT e FROM Empleado e WHERE e.nombre LIKE ?1")
 public class Empleado {
 
 	@Id

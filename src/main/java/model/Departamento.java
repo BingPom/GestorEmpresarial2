@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -20,6 +21,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "Departamento")
+@NamedQuery(name = "Departamento.findAll", query = "SELECT d FROM Departamento d")
+@NamedQuery(name = "Departamento.findByJefeId", query = "SELECT d FROM Departamento d WHERE d.jefe.id = ?1")
+@NamedQuery(name = "Departamento.findByName", query = "SELECT d FROM Departamento d WHERE d.nombre LIKE ?1F")
 public class Departamento {
 
 	@Id

@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,25 +22,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "Proyecto")
-@NamedQueries({
-	
-})
+@NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p")
+@NamedQuery(name = "Proyecto.findByName", query = "SELECT p FROM Proyecto p WHERE p.id LIKE ?1")
 public class Proyecto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String nombre;
-	
+
 	@ManyToMany(mappedBy = "proyecto")
 	private HashSet<Empleado> empleados;
-	
+
 	@Override
 	public String toString() {
-		List<String> emps = empleados.stream()
-				.map(e -> e.getId().toString())
-				.sorted()
-				.toList();
+		List<String> emps = empleados.stream().map(e -> e.getId().toString()).sorted().toList();
 		return String.format("[%d,%s,%s]", id, nombre, emps);
 	}
 }

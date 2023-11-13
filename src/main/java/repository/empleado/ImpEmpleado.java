@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import dao.HibernateManager;
 import jakarta.persistence.TypedQuery;
+import model.Departamento;
 import model.Empleado;
 
 public class ImpEmpleado implements EmpleadoRepository {
@@ -49,13 +50,25 @@ public class ImpEmpleado implements EmpleadoRepository {
 
 	@Override
 	public Optional<Empleado> findById(Integer id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		logger.info("findById)");
+		HibernateManager manager = HibernateManager.getInstance();
+		manager.open();
+		Optional<Empleado> empleado = Optional.ofNullable(manager.getManager().find(Empleado.class, id));
+		manager.close();
+
+		return empleado;
 	}
-	
+
 	public List<Empleado> findByName(String str) {
-		// TODO Auto-generated method stub
-		return null;
+		logger.info("findByName");
+		HibernateManager manager = HibernateManager.getInstance();
+		manager.open();
+
+		TypedQuery<Empleado> query = manager.getManager().createNamedQuery("Empleado.findAll", Empleado.class);
+		List<Empleado> list = query.getResultList();
+		manager.close();
+
+		return list;
 	}
 
 	@Override
