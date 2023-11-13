@@ -1,8 +1,6 @@
 package view;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import io.IO;
 import model.Departamento;

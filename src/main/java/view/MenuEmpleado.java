@@ -1,8 +1,5 @@
 package view;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import dao.EmpleadoDao_deprecated;
 import io.IO;
 import model.Departamento;
@@ -13,17 +10,8 @@ public class MenuEmpleado {
 	public static void menu() {
 		EmpleadoDao_deprecated dao = new EmpleadoDao_deprecated();
 		
-		List<String> opciones = List.of( 
-				"buscar por Código", 
-				"buscar por Nombre", 
-				"Mostrar", 
-				"Añadir",
-				"modiFicar",
-				"Eliminar",
-				"Salir");
-		
 		while (true) {
-			IO.println("Empleados: " + opciones);
+			IO.println("Empleados: " + EmpleadosView.OPCIONES);
 			switch (Character.toUpperCase(IO.readChar())) {
 			case 'C':
 				buscarPorCodigo(dao);
@@ -63,8 +51,6 @@ public class MenuEmpleado {
 		String nombre = IO.readString();
 		IO.print("Salario ? ");
 		Double salario = IO.readDoubleOrNull();
-		IO.print("Nacido (aaaa-mm-dd) ? ");
-		LocalDate nacido = IO.readLocalDateOrNull();
 		Empleado e = Empleado.builder()
 				.nombre(nombre)
 				.salario(salario)

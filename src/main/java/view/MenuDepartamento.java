@@ -1,7 +1,5 @@
 package view;
 
-import java.util.List;
-
 import dao.DepartamentoDao_deprecated;
 import dao.EmpleadoDao_deprecated;
 import io.IO;
@@ -14,17 +12,8 @@ public class MenuDepartamento {
 		
 		DepartamentoDao_deprecated dao = new DepartamentoDao_deprecated();
 		
-		List<String> opciones = List.of( 
-				"buscar por Código", 
-				"buscar por Nombre", 
-				"Mostrar", 
-				"Añadir",
-				"modiFicar",
-				"Eliminar",
-				"Salir");
-		
 		while (true) {
-			IO.println("Departamentos: " + opciones);
+			IO.println("Departamentos: " + DepartamentosView.OPCIONES);
 			switch (Character.toUpperCase(IO.readChar())) {
 			case 'C':
 				buscarPorCodigo(dao);

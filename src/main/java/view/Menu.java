@@ -1,7 +1,5 @@
 package view;
 
-import java.util.List;
-
 import dao.BD_deprecated;
 import io.IO;
 
@@ -9,21 +7,19 @@ public class Menu {
 	
 	public static void main(String[] args) {
 		
-		List<String> opciones = List.of( 
-				"Empleados", 
-				"Departamentos", 
-				"Salir");
-		
 		while (true) {
-			IO.println(opciones);
+			IO.println(View.opciones);
 			switch (Character.toUpperCase(IO.readChar())) {
-			case 'E':
+			case 1:
 				MenuEmpleado.menu();
 				break;
-			case 'D':
+			case 2:
 				MenuDepartamento.menu();
 				break;
-			case 'S':
+			case 3:
+//				MenuProyecto.menu();
+				break;
+			case 4:
 				BD_deprecated.close();
 				return;
 			default:
