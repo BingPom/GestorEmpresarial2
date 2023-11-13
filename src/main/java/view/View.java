@@ -6,11 +6,15 @@ import io.IO;
 
 public class View {
 
-	static final List<String> opciones = List.of("Empleados", "Departamentos", "Proyectos", "Salir");
+	static final List<String> opciones = List.of(
+			"1. Empleados", 
+			"2. Departamentos", 
+			"3. Proyectos", 
+			"4. Salir");
 
-	public static Character getOption() {
+	public static Integer getOption() {
 		IO.println(opciones);
-		return (Character.toUpperCase(IO.readChar()));
+		return IO.readInt();
 	}
 
 }
