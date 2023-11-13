@@ -10,8 +10,13 @@ import model.Empleado;
 
 public class DepartamentosView {
 
-	static final List<String> OPCIONES = List.of("1. Buscar por Id", "2. Buscar por nombre", "3. Listar todos",
-			"4. Añadir un departamento", "5. Actualizar los datos de un departamentos", "6. Borrar un departamento",
+	static final List<String> OPCIONES = List.of(
+			"1. Buscar por Id", 
+			"2. Buscar por nombre", 
+			"3. Listar todos",
+			"4. Añadir un departamento", 
+			"5. Actualizar los datos de un departamentos", 
+			"6. Borrar un departamento",
 			"7. Salir");
 
 	static public Integer getOption() {
@@ -52,13 +57,6 @@ public class DepartamentosView {
 	static public int buscarPorCodigo() {
 		IO.print("Código ? ");
 		return IO.readInt();
-	}
-
-	static public void mostrar(Optional<Departamento> list) {
-		List<Departamento> list_l = list.stream().collect(Collectors.toList());
-		for (Departamento d : list_l) {
-			IO.println(d.show());
-		}
 	}
 
 	static public void mostrar(Departamento d, List<Empleado> emps) {
