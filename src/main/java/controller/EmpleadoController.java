@@ -19,7 +19,7 @@ public class EmpleadoController {
 	
 	public void menu() {
 		while (true) {
-			Character opt = EmpleadosView.getOption();
+			int opt = EmpleadosView.getOption();
 			switch (opt) {
 			case 1:
 				getById();
