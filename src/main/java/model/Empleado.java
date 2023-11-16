@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,9 +25,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Empleado")
 @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e")
-@NamedQuery(name = "Empleado.findByDepartamentoId", query = "SELECT e FROM Empleado e WHERE e.departamento.id = ?1")
-@NamedQuery(name = "Empleado.findByProyectoId", query = "SELECT e FROM Empleado e WHERE SELECT FROM e.proyectos.id = ?1")
-@NamedQuery(name = "Empleado.findByName", query = "SELECT e FROM Empleado e WHERE e.nombre LIKE ?1")
+@NamedQuery(name = "Empleado.findByDepartamentoId", query = "SELECT e FROM Empleado e WHERE e.departamento.id = :id")
+@NamedQuery(name = "Empleado.findByProyectoId", query = "SELECT e FROM Empleado e WHERE :id IN (SELECT p.id FROM e.proyectos p)")
+@NamedQuery(name = "Empleado.findByName", query = "SELECT e FROM Empleado e WHERE e.nombre LIKE :nombre")
 public class Empleado {
 
 	@Id

@@ -2,10 +2,12 @@ package model;
 
 import java.util.HashSet;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -23,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Departamento")
 @NamedQuery(name = "Departamento.findAll", query = "SELECT d FROM Departamento d")
 @NamedQuery(name = "Departamento.findByJefeId", query = "SELECT d FROM Departamento d WHERE d.jefe.id = ?1")
-@NamedQuery(name = "Departamento.findByName", query = "SELECT d FROM Departamento d WHERE d.nombre LIKE ?1F")
+@NamedQuery(name = "Departamento.findByName", query = "SELECT d FROM Departamento d WHERE d.nombre LIKE :nombre")
 public class Departamento {
 
 	@Id
@@ -31,7 +33,8 @@ public class Departamento {
 	Integer id;
 	String nombre;
 
-	@OneToOne(mappedBy = "jefe")
+	@MapsId
+	@OneToOne(cascade = CascadeType.ALL)
 	Empleado jefe;
 
 	@OneToMany(mappedBy = "departamento")

@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Proyecto")
 @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p")
-@NamedQuery(name = "Proyecto.findByName", query = "SELECT p FROM Proyecto p WHERE p.id LIKE ?1")
+@NamedQuery(name = "Proyecto.findByName", query = "SELECT p FROM Proyecto p WHERE p.nombre LIKE :nombre")
 public class Proyecto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Proyecto {
 
 	private String nombre;
 
-	@ManyToMany(mappedBy = "proyecto")
+	@ManyToMany(mappedBy = "proyectos")
 	private HashSet<Empleado> empleados;
 
 	@Override

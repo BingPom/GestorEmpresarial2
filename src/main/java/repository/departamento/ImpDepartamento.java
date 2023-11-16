@@ -65,8 +65,8 @@ public class ImpDepartamento implements DepartamentoRepository {
 		HibernateManager manager = HibernateManager.getInstance();
 		manager.open();
 
-		TypedQuery<Departamento> query = manager.getManager().createNamedQuery("Departamento.findByName",
-				Departamento.class);
+		TypedQuery<Departamento> query = manager.getManager()
+				.createNamedQuery("Departamento.findByName", Departamento.class).setParameter("nombre", str);
 		List<Departamento> list = query.getResultList();
 		manager.close();
 

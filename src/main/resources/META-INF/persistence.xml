@@ -19,7 +19,7 @@
 			<property name="hibernate.connection.url"
 				value="jdbc:mariadb://172.21.176.1:3306/empresa" />
 			<property name="hibernate.connection.driver_class"
-				value="org.maridb.jdbc.Driver" />
+				value="org.mariadb.jdbc.Driver" />
 			<property name="hibernate.connection.user" value="root" />
 			<property name="hibernate.connection.password" value="pass" />
 			<!--  Para ver las consultas  -->
@@ -31,10 +31,13 @@
                             create-drop: drop the schema when the SessionFactory is closed explicitly,
 			typically when the application is stopped.
                             none: does nothing with the schema, makes no changes to the database -->
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<!-- Dialecto de sqlite -->
-			<property name="hibernate.dialect"
+			<property
+				name="jakarta.persistence.schema-generation.database.action"
+				value="drop-and-create" />
+			<!-- Dialecto de MariaDB -->
+			<!-- <property name="hibernate.dialect"
 				value="org.hibernate.dialect.MariaDBDialect" />
+				-->
 
 		</properties>
 	</persistence-unit>

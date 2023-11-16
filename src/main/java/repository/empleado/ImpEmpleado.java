@@ -14,12 +14,12 @@ public class ImpEmpleado implements EmpleadoRepository {
 
 	@Override
 	public Boolean create(Empleado entity) {
-		logger.info("create()");
+		logger.info("create");
 		HibernateManager manager = HibernateManager.getInstance();
 		manager.open();
 		manager.getTransaction().begin();
 		try {
-			manager.getManager().merge(entity);
+			manager.getManager().persist(entity);
 			manager.getTransaction().commit();
 			manager.close();
 
@@ -64,7 +64,8 @@ public class ImpEmpleado implements EmpleadoRepository {
 		HibernateManager manager = HibernateManager.getInstance();
 		manager.open();
 
-		TypedQuery<Empleado> query = manager.getManager().createNamedQuery("Empleado.findAll", Empleado.class);
+		TypedQuery<Empleado> query = manager.getManager().createNamedQuery("Empleado.findByName", Empleado.class)
+				.setParameter("nombre", str);
 		List<Empleado> list = query.getResultList();
 		manager.close();
 
