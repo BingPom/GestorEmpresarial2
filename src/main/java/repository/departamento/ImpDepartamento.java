@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import dao.HibernateManager;
 import jakarta.persistence.TypedQuery;
 import model.Departamento;
+import model.Empleado;
 
 public class ImpDepartamento implements DepartamentoRepository {
 	private final Logger logger = Logger.getLogger(ImpDepartamento.class.getName());
@@ -14,24 +15,23 @@ public class ImpDepartamento implements DepartamentoRepository {
 	@Override
 	public Boolean create(Departamento entity) {
 		logger.info("create");
-
 		HibernateManager manager = HibernateManager.getInstance();
 		manager.open();
 		manager.getTransaction().begin();
 
 		try {
-			manager.getManager().merge(entity);
+			manager.getManager().persist(entity);
 			manager.getTransaction().commit();
-			manager.close();
 			return true;
 		} catch (Exception e) {
-			// TODO
-		} finally {
-			if (manager.getTransaction().isActive())
+			// si sigue activa es porque ha fallado algo, asi que rollback
+			if (manager.getTransaction() != null && manager.getTransaction().isActive())
 				manager.getTransaction().rollback();
+			System.err.println("Error al agregar entidad " + e.getMessage());
+			return false;
+		} finally {
+			manager.close();
 		}
-
-		return false;
 	}
 
 	@Override
@@ -91,16 +91,15 @@ public class ImpDepartamento implements DepartamentoRepository {
 			// entity = manager.getManager().find(Departamento.class, entity.getId());
 			manager.getManager().remove(entity);
 			manager.getTransaction().commit();
-			manager.close();
 
 			return true;
 		} catch (Exception e) {
-			// taca
-		} finally {
-			if (manager.getTransaction().isActive())
+			if (manager.getTransaction() != null && manager.getTransaction().isActive())
 				manager.getTransaction().rollback();
+			return false;
+		} finally {
+			manager.close();
 		}
-		return false;
 	}
 
 }

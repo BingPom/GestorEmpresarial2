@@ -18,21 +18,20 @@ public class ImpEmpleado implements EmpleadoRepository {
 		HibernateManager manager = HibernateManager.getInstance();
 		manager.open();
 		manager.getTransaction().begin();
+
 		try {
 			manager.getManager().persist(entity);
 			manager.getTransaction().commit();
-			manager.close();
-
 			return true;
 		} catch (Exception e) {
-			// taca
-		} finally {
 			// si sigue activa es porque ha fallado algo, asi que rollback
-			if (manager.getTransaction().isActive())
+			if (manager.getTransaction() != null && manager.getTransaction().isActive())
 				manager.getTransaction().rollback();
+			System.err.println("Error al agregar entidad " + e.getMessage());
+			return false;
+		} finally {
+			manager.close();
 		}
-
-		return false;
 	}
 
 	@Override
@@ -90,16 +89,15 @@ public class ImpEmpleado implements EmpleadoRepository {
 			// entity = manager.getManager().find(Empleado.class, entity.getId());
 			manager.getManager().remove(entity);
 			manager.getTransaction().commit();
-			manager.close();
 
 			return true;
 		} catch (Exception e) {
-			// taca
-		} finally {
-			if (manager.getTransaction().isActive())
+			if (manager.getTransaction() != null && manager.getTransaction().isActive())
 				manager.getTransaction().rollback();
+			return false;
+		} finally {
+			manager.close();
 		}
-		return false;
 	}
 
 }
