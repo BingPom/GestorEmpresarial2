@@ -17,9 +17,9 @@ public class EmpleadosView {
 			"6. Borrar un empleado",
 			"7. Salir");
 	
-	static public Character getOption() {
+	static public Integer getOption() {
 		IO.println("Empleados: " + OPCIONES);
-		return Character.toUpperCase(IO.readChar());
+		return IO.readInt();
 	}
 
 	static public Empleado anadir() {
