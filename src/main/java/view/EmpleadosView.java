@@ -15,7 +15,10 @@ public class EmpleadosView {
 			"4. Añadir un empleado", 
 			"5. Actualizar los datos de un empleado", 
 			"6. Borrar un empleado",
-			"7. Salir");
+			"7. Añadir un empleado a un departamento",
+			"8. Añadir un empleado a un proyecto",
+			"9. Sacar a un empleado de un proyecto",
+			"10. Salir");
 	
 	static public Integer getOption() {
 		IO.println("Empleados: " + OPCIONES);

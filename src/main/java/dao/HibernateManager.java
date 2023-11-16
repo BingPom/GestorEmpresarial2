@@ -25,7 +25,7 @@ public class HibernateManager {
 	}
 	
 	public void open() {
-		entityManagerFactory = Persistence.createEntityManagerFactory("default");
+		entityManagerFactory = Persistence.createEntityManagerFactory("persistence-unit");
 		manager = entityManagerFactory.createEntityManager();
 		transaction = manager.getTransaction();
 	}
