@@ -25,8 +25,6 @@ public class ImpProyecto implements ProyectoRepository {
 >>>>>>> d6b2d4555d8e84d18e079e34f03f35daf306610a
 	@Override
 	public Boolean create(Proyecto entity) {
-		// TODO Auto-generated method stub
-		return false;
 		logger.info("create");
 		HibernateManager manager = HibernateManager.getInstance();
 		manager.open();
@@ -49,8 +47,6 @@ public class ImpProyecto implements ProyectoRepository {
 
 	@Override
 	public List<Proyecto> findAll() {
-		// TODO Auto-generated method stub
-		return null;
 		logger.info("findAll");
 		HibernateManager manager = HibernateManager.getInstance();
 		manager.open();
@@ -64,8 +60,6 @@ public class ImpProyecto implements ProyectoRepository {
 
 	@Override
 	public Optional<Proyecto> findById(Integer id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
 		logger.info("findById)");
 		HibernateManager manager = HibernateManager.getInstance();
 		manager.open();
@@ -77,8 +71,6 @@ public class ImpProyecto implements ProyectoRepository {
 
 	@Override
 	public Boolean update(Proyecto entity) {
-		// TODO Auto-generated method stub
-		return false;
 		logger.info("create");
 		HibernateManager manager = HibernateManager.getInstance();
 		manager.open();
@@ -101,8 +93,6 @@ public class ImpProyecto implements ProyectoRepository {
 
 	@Override
 	public Boolean delete(Proyecto entity) {
-		// TODO Auto-generated method stub
-		return false;
 		logger.info("delete");
 
 		HibernateManager manager = HibernateManager.getInstance();
