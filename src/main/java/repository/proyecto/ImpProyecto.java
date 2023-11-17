@@ -5,24 +5,14 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import dao.HibernateManager;
-<<<<<<< HEAD
+import jakarta.persistence.TypedQuery;
 import model.Empleado;
 import model.Proyecto;
 import repository.departamento.ImpDepartamento;
 
 public class ImpProyecto implements ProyectoRepository {
 	private final Logger logger = Logger.getLogger(ImpDepartamento.class.getName());
-	
-=======
-import jakarta.persistence.TypedQuery;
-import model.Empleado;
-import model.Proyecto;
-import repository.empleado.ImpEmpleado;
 
-public class ImpProyecto implements ProyectoRepository {
-	private final Logger logger = Logger.getLogger(ImpEmpleado.class.getName());
-
->>>>>>> d6b2d4555d8e84d18e079e34f03f35daf306610a
 	@Override
 	public Boolean create(Proyecto entity) {
 		logger.info("create");
