@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -39,4 +38,19 @@ public class Proyecto {
 		List<String> emps = empleados.stream().map(e -> e.getId().toString()).sorted().toList();
 		return String.format("[%d,%s,%s]", id, nombre, emps);
 	}
+	
+	public Boolean addEmpleado(Empleado e) {
+		if (this.getEmpleados().contains(e) || e.getProyectos().contains(this)) {
+			return false;
+		}
+		return this.empleados.add(e) && e.getProyectos().add(this);
+	}
+	
+	public Boolean removeEmpleado(Empleado e) {
+		if (this.getEmpleados().contains(e) || e.getProyectos().contains(this)) {
+			return false;
+		}
+		return this.empleados.remove(e) && e.getProyectos().remove(this);
+	}
+	
 }
