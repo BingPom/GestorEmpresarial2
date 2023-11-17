@@ -60,5 +60,20 @@ public class Departamento {
 
 		return sb.toString();
 	}
+	
+	public Boolean addEmpleado(Empleado e) {
+//		If it has a Departamento, its first removed from that departamento
+		if (e.getDepartamento() != null) {
+			e.getDepartamento().getEmpleados().remove(e);
+		}
+//		Added to this departamento
+		e.setDepartamento(this);
+		return empleados.add(e);
+	}
 
+	public Boolean removeEmpleado(Empleado e) {
+		e.setDepartamento(null);
+		return empleados.remove(e);
+	}
+	
 }

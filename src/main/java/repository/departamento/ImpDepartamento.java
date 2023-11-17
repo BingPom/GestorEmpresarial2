@@ -75,8 +75,24 @@ public class ImpDepartamento implements DepartamentoRepository {
 
 	@Override
 	public Boolean update(Departamento entity) {
-		// TODO Auto-generated method stub
-		return false;
+		logger.info("update");
+		HibernateManager manager = HibernateManager.getInstance();
+		manager.open();
+		manager.getTransaction().begin();
+
+		try {
+			manager.getManager().merge(entity);
+			manager.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			// si sigue activa es porque ha fallado algo, asi que rollback
+			if (manager.getTransaction() != null && manager.getTransaction().isActive())
+				manager.getTransaction().rollback();
+			System.err.println("Error al actualizar la entidad " + e.getMessage());
+			return false;
+		} finally {
+			manager.close();
+		}
 	}
 
 	@Override
@@ -100,6 +116,42 @@ public class ImpDepartamento implements DepartamentoRepository {
 		} finally {
 			manager.close();
 		}
+	}
+	
+	public Boolean addEmpleado(Departamento d, Empleado e) {
+		logger.info("add empleado");
+
+		HibernateManager manager = HibernateManager.getInstance();
+		manager.open();
+
+		try {
+			return d.addEmpleado(e);
+		} catch (Exception f) {
+			if (manager.getTransaction() != null && manager.getTransaction().isActive())
+				manager.getTransaction().rollback();
+			return false;
+		} finally {
+			manager.close();
+		}
+
+	}
+	
+	public Boolean removeEmpleado(Departamento d, Empleado e) {
+		logger.info("remove empleado");
+
+		HibernateManager manager = HibernateManager.getInstance();
+		manager.open();
+
+		try {
+			return d.removeEmpleado(e);
+		} catch (Exception f) {
+			if (manager.getTransaction() != null && manager.getTransaction().isActive())
+				manager.getTransaction().rollback();
+			return false;
+		} finally {
+			manager.close();
+		}
+
 	}
 
 }
