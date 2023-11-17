@@ -11,7 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -64,6 +63,20 @@ public class Empleado {
 		}
 
 		return sb.toString();
+	}
+	
+	public Boolean addProyecto(Proyecto p) {
+		if (p.getEmpleados().contains(this)|| this.getProyectos().contains(p)) {
+			return false;
+		}
+		return this.proyectos.add(p) && p.getEmpleados().add(this);
+	}
+	
+	public Boolean removeEmpleado(Proyecto p) {
+		if (p.getEmpleados().contains(this)|| this.getProyectos().contains(p)) {
+			return false;
+		}
+		return this.proyectos.remove(p) && p.getEmpleados().remove(this);
 	}
 
 }

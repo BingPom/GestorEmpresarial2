@@ -6,8 +6,8 @@ import java.util.logging.Logger;
 
 import dao.HibernateManager;
 import jakarta.persistence.TypedQuery;
-import model.Departamento;
 import model.Empleado;
+import model.Proyecto;
 
 public class ImpEmpleado implements EmpleadoRepository {
 	private final Logger logger = Logger.getLogger(ImpEmpleado.class.getName());
@@ -99,5 +99,39 @@ public class ImpEmpleado implements EmpleadoRepository {
 			manager.close();
 		}
 	}
+	
+	public Boolean addProyecto(Empleado e, Proyecto p) {
+		logger.info("add proyecto");
 
+		HibernateManager manager = HibernateManager.getInstance();
+		manager.open();
+
+		try {
+			return e.addProyecto(p);
+		} catch (Exception f) {
+			if (manager.getTransaction() != null && manager.getTransaction().isActive())
+				manager.getTransaction().rollback();
+			return false;
+		} finally {
+			manager.close();
+		}
+	}
+	
+	public Boolean removeProyecto(Empleado e, Proyecto p) {
+		logger.info("remove proyecto");
+
+		HibernateManager manager = HibernateManager.getInstance();
+		manager.open();
+
+		try {
+			return e.removeEmpleado(p);
+		} catch (Exception f) {
+			if (manager.getTransaction() != null && manager.getTransaction().isActive())
+				manager.getTransaction().rollback();
+			return false;
+		} finally {
+			manager.close();
+		}
+
+	}
 }

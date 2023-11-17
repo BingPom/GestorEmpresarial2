@@ -94,4 +94,6 @@ public class EmpleadoController {
 		if (entity != null)
 			EmpleadosView.result(repo.delete(entity) ? "Borrado" : "No se ha podido borrar");
 	}
+	
+	
 }
