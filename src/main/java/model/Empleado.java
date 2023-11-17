@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "Empleado")
-@NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e")
+@NamedQuery(name = "Empleado.findAll", query = "FROM Empleado")
 @NamedQuery(name = "Empleado.findByDepartamentoId", query = "SELECT e FROM Empleado e WHERE e.departamento.id = :id")
 @NamedQuery(name = "Empleado.findByProyectoId", query = "SELECT e FROM Empleado e WHERE :id IN (SELECT p.id FROM e.proyectos p)")
 @NamedQuery(name = "Empleado.findByName", query = "SELECT e FROM Empleado e WHERE e.nombre LIKE :nombre")
@@ -40,7 +41,8 @@ public class Empleado {
 	Departamento departamento;
 
 	@ManyToMany(cascade = { CascadeType.ALL })
-	HashSet<Proyecto> proyectos;
+	@Builder.Default
+	Set<Proyecto> proyectos = new HashSet<Proyecto>();
 
 	/**
 	 * Devuelve representación de un empleado
@@ -64,16 +66,16 @@ public class Empleado {
 
 		return sb.toString();
 	}
-	
+
 	public Boolean addProyecto(Proyecto p) {
-		if (p.getEmpleados().contains(this)|| this.getProyectos().contains(p)) {
+		if (p.getEmpleados().contains(this) || this.getProyectos().contains(p)) {
 			return false;
 		}
 		return this.proyectos.add(p) && p.getEmpleados().add(this);
 	}
-	
+
 	public Boolean removeEmpleado(Proyecto p) {
-		if (p.getEmpleados().contains(this)|| this.getProyectos().contains(p)) {
+		if (p.getEmpleados().contains(this) || this.getProyectos().contains(p)) {
 			return false;
 		}
 		return this.proyectos.remove(p) && p.getEmpleados().remove(this);

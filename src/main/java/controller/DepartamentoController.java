@@ -1,18 +1,20 @@
 package controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import model.Departamento;
 import repository.departamento.ImpDepartamento;
 import view.DepartamentosView;
+import view.EmpleadosView;
 
 public class DepartamentoController {
 	private final Logger logger = Logger.getLogger(this.getClass().getName());
 
 	private final ImpDepartamento repo;
-	
+
 	public DepartamentoController() {
 		repo = new ImpDepartamento();
 	}
@@ -40,8 +42,13 @@ public class DepartamentoController {
 				delete();
 				break;
 			case 7:
-				return;
+				break;
+			case 8:
+				break;
+			case 9:
+				break;
 			default:
+				return;
 			}
 		}
 	}
@@ -56,11 +63,10 @@ public class DepartamentoController {
 	private void getById() {
 		Integer id = DepartamentosView.buscarPorCodigo();
 		logger.info("Obteniendo Departamento con id: " + id);
-		Departamento entity = repo.findById(id).stream().collect(Collectors.toList()).get(0);
-//		entity.ifPresent(DepartamentosView::mostrar);
-//		if (entity != null) {
-//			DepartamentosView.mostrar(entity, dao.getEmpleados(id));
-//		}
+		Optional<Departamento> entity = repo.findById(id);
+		if (entity.isPresent()) {
+			DepartamentosView.mostrar(entity.get());
+		}
 	}
 
 	private void getAll() {
@@ -79,10 +85,10 @@ public class DepartamentoController {
 		boolean updated = false;
 		Integer id = DepartamentosView.buscarPorCodigo();
 		logger.info("Actualizando Departamento con id: " + id);
-		Departamento entity = repo.findById(id).stream().collect(Collectors.toList()).get(0);
+		Optional<Departamento> entity = repo.findById(id);
 		Departamento d = null;
-		if (entity != null) {
-			d = DepartamentosView.modificar(entity);
+		if (entity.isPresent()) {
+			d = DepartamentosView.modificar(entity.get());
 			updated = repo.update(d);
 		}
 		DepartamentosView.result(updated ? "Modificado" : "No se ha podido modificar");
@@ -91,8 +97,8 @@ public class DepartamentoController {
 	private void delete() {
 		Integer id = DepartamentosView.buscarPorCodigo();
 		logger.info("Eliminando Departamento con id: " + id);
-		Departamento entity = repo.findById(id).stream().collect(Collectors.toList()).get(0);
-		if (entity != null)
-			DepartamentosView.result(repo.delete(entity) ? "Borrado" : "No se ha podido borrar");
+		Optional<Departamento> entity = repo.findById(id);
+		if (entity.isPresent())
+			DepartamentosView.result(repo.delete(entity.get()) ? "Borrado" : "No se ha podido borrar");
 	}
 }

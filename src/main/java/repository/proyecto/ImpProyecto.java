@@ -90,7 +90,7 @@ public class ImpProyecto implements ProyectoRepository {
 
 		try {
 			manager.getTransaction().begin();
-			// entity = manager.getManager().find(Proyecto.class, entity.getId());
+			entity = manager.getManager().find(Proyecto.class, entity.getId());
 			manager.getManager().remove(entity);
 			manager.getTransaction().commit();
 
@@ -103,7 +103,7 @@ public class ImpProyecto implements ProyectoRepository {
 			manager.close();
 		}
 	}
-	
+
 	public Boolean addEmpleado(Proyecto p, Empleado e) {
 		logger.info("add empleado");
 
@@ -120,7 +120,7 @@ public class ImpProyecto implements ProyectoRepository {
 			manager.close();
 		}
 	}
-	
+
 	public Boolean removeEmpleado(Proyecto p, Empleado e) {
 		logger.info("remove empleado");
 

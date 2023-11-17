@@ -52,10 +52,10 @@ public class ImpEmpleado implements EmpleadoRepository {
 		logger.info("findById)");
 		HibernateManager manager = HibernateManager.getInstance();
 		manager.open();
-		Optional<Empleado> empleado = Optional.ofNullable(manager.getManager().find(Empleado.class, id));
+		Empleado empleado = manager.getManager().find(Empleado.class, id);
 		manager.close();
 
-		return empleado;
+		return Optional.ofNullable(empleado);
 	}
 
 	public List<Empleado> findByName(String str) {
@@ -73,8 +73,24 @@ public class ImpEmpleado implements EmpleadoRepository {
 
 	@Override
 	public Boolean update(Empleado entity) {
-		// TODO Auto-generated method stub
-		return false;
+		logger.info("update");
+		HibernateManager manager = HibernateManager.getInstance();
+		manager.open();
+		manager.getTransaction().begin();
+
+		try {
+			manager.getManager().merge(entity);
+			manager.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			// si sigue activa es porque ha fallado algo, asi que rollback
+			if (manager.getTransaction() != null && manager.getTransaction().isActive())
+				manager.getTransaction().rollback();
+			System.err.println("Error al actualizar la entidad " + e.getMessage());
+			return false;
+		} finally {
+			manager.close();
+		}
 	}
 
 	@Override
@@ -86,7 +102,7 @@ public class ImpEmpleado implements EmpleadoRepository {
 
 		try {
 			manager.getTransaction().begin();
-			// entity = manager.getManager().find(Empleado.class, entity.getId());
+			entity = manager.getManager().find(Empleado.class, entity.getId());
 			manager.getManager().remove(entity);
 			manager.getTransaction().commit();
 
@@ -99,7 +115,7 @@ public class ImpEmpleado implements EmpleadoRepository {
 			manager.close();
 		}
 	}
-	
+
 	public Boolean addProyecto(Empleado e, Proyecto p) {
 		logger.info("add proyecto");
 
@@ -116,7 +132,7 @@ public class ImpEmpleado implements EmpleadoRepository {
 			manager.close();
 		}
 	}
-	
+
 	public Boolean removeProyecto(Empleado e, Proyecto p) {
 		logger.info("remove proyecto");
 

@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -10,13 +11,13 @@ import view.EmpleadosView;
 
 public class EmpleadoController {
 	private final Logger logger = Logger.getLogger(this.getClass().getName());
-	
+
 	private final ImpEmpleado repo;
 
 	public EmpleadoController() {
 		repo = new ImpEmpleado();
 	}
-	
+
 	public void menu() {
 		while (true) {
 			int opt = EmpleadosView.getOption();
@@ -40,8 +41,13 @@ public class EmpleadoController {
 				delete();
 				break;
 			case 7:
-				return;
+				break;
+			case 8:
+				break;
+			case 9:
+				break;
 			default:
+				return;
 			}
 		}
 	}
@@ -50,18 +56,19 @@ public class EmpleadoController {
 		String inicio = EmpleadosView.buscarPorInicioDelNombre();
 		logger.info("Obteniendo Empleados que empiezan por " + inicio);
 		List<Empleado> list = repo.findByName(inicio + "%");
-		EmpleadosView.mostrar(list);		
+		EmpleadosView.mostrar(list);
 	}
 
 	private void getById() {
 		Integer id = EmpleadosView.buscarPorCodigo();
 		logger.info("Obteniendo Empleado con id: " + id);
-		Empleado entity = repo.findById(id).stream().collect(Collectors.toList()).get(0);
-		if (entity != null) {
-			EmpleadosView.mostrar(entity);
+		Optional<Empleado> entity = repo.findById(id);
+
+		if (entity.isPresent()) {
+			EmpleadosView.mostrar(entity.get());
 		}
 	}
-	
+
 	private void getAll() {
 		logger.info("Obteniendo Empleados");
 		List<Empleado> list = repo.findAll();
@@ -78,11 +85,11 @@ public class EmpleadoController {
 		boolean updated = false;
 		Integer id = EmpleadosView.buscarPorCodigo();
 		logger.info("Actualizando Empleado con id: " + id);
-		Empleado entity = repo.findById(id).stream().collect(Collectors.toList()).get(0);
-		Empleado d = null;
-		if (entity != null) {
-			d = EmpleadosView.modificar(entity);
-			updated = repo.update(d);
+		Optional<Empleado> entity = repo.findById(id);
+		Empleado e = null;
+		if (entity.isPresent()) {
+			e = EmpleadosView.modificar(entity.get());
+			updated = repo.update(e);
 		}
 		EmpleadosView.result(updated ? "Modificado" : "No se ha podido modificar");
 	}
@@ -90,10 +97,11 @@ public class EmpleadoController {
 	private void delete() {
 		Integer id = EmpleadosView.buscarPorCodigo();
 		logger.info("Eliminando Empleado con id: " + id);
-		Empleado entity = repo.findById(id).stream().collect(Collectors.toList()).get(0);
-		if (entity != null)
-			EmpleadosView.result(repo.delete(entity) ? "Borrado" : "No se ha podido borrar");
+		Optional<Empleado> entity = repo.findById(id);
+		if (entity.isPresent())
+			EmpleadosView.result(repo.delete(entity.get()) ? "Borrado" : "No se ha podido borrar");
+		else
+			EmpleadosView.result("No existe");
 	}
-	
-	
+
 }

@@ -104,7 +104,7 @@ public class ImpDepartamento implements DepartamentoRepository {
 
 		try {
 			manager.getTransaction().begin();
-			// entity = manager.getManager().find(Departamento.class, entity.getId());
+			entity = manager.getManager().find(Departamento.class, entity.getId());
 			manager.getManager().remove(entity);
 			manager.getTransaction().commit();
 
@@ -117,7 +117,7 @@ public class ImpDepartamento implements DepartamentoRepository {
 			manager.close();
 		}
 	}
-	
+
 	public Boolean addEmpleado(Departamento d, Empleado e) {
 		logger.info("add empleado");
 
@@ -135,7 +135,7 @@ public class ImpDepartamento implements DepartamentoRepository {
 		}
 
 	}
-	
+
 	public Boolean removeEmpleado(Departamento d, Empleado e) {
 		logger.info("remove empleado");
 

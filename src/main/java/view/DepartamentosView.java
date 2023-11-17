@@ -1,6 +1,7 @@
 package view;
 
 import java.util.List;
+import java.util.Set;
 
 import io.IO;
 import model.Departamento;
@@ -8,13 +9,8 @@ import model.Empleado;
 
 public class DepartamentosView {
 
-	static final List<String> OPCIONES = List.of(
-			"1. Buscar por Id", 
-			"2. Buscar por nombre", 
-			"3. Listar todos",
-			"4. Añadir un departamento", 
-			"5. Actualizar los datos de un departamentos", 
-			"6. Borrar un departamento",
+	static final List<String> OPCIONES = List.of("1. Buscar por Id", "2. Buscar por nombre", "3. Listar todos",
+			"4. Añadir un departamento", "5. Actualizar los datos de un departamentos", "6. Borrar un departamento",
 			"7. Salir");
 
 	static public Integer getOption() {
@@ -57,17 +53,17 @@ public class DepartamentosView {
 		return IO.readInt();
 	}
 
-	static public void mostrar(Departamento d, List<Empleado> emps) {
+	static public void mostrar(Departamento d) {
 		if (d == null) {
 			return;
 		}
 		IO.println(d.show());
 		IO.println("* Empleados del departamento :");
-		for (Empleado e : emps) {
+		for (Empleado e : d.getEmpleados()) {
 			IO.println(e.show());
 		}
 	}
-	
+
 	static public void mostrar(List<Departamento> list) {
 		for (Departamento d : list) {
 			IO.println(d.show());

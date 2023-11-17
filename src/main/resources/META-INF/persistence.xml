@@ -31,9 +31,7 @@
                             create-drop: drop the schema when the SessionFactory is closed explicitly,
 			typically when the application is stopped.
                             none: does nothing with the schema, makes no changes to the database -->
-			<property
-				name="jakarta.persistence.schema-generation.database.action"
-				value="drop-and-create" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			<!-- Dialecto de MariaDB -->
 			<!-- <property name="hibernate.dialect"
 				value="org.hibernate.dialect.MariaDBDialect" />

@@ -1,12 +1,14 @@
 package model;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -33,12 +35,13 @@ public class Departamento {
 	Integer id;
 	String nombre;
 
-	@MapsId
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "jefe", referencedColumnName = "id")
 	Empleado jefe;
 
 	@OneToMany(mappedBy = "departamento")
-	HashSet<Empleado> empleados;
+	@Builder.Default
+	Set<Empleado> empleados = new HashSet<Empleado>();
 
 	/**
 	 * Devuelve representación de un departamento
@@ -60,7 +63,7 @@ public class Departamento {
 
 		return sb.toString();
 	}
-	
+
 	public Boolean addEmpleado(Empleado e) {
 //		If it has a Departamento, its first removed from that departamento
 		if (e.getDepartamento() != null) {
@@ -75,5 +78,5 @@ public class Departamento {
 		e.setDepartamento(null);
 		return empleados.remove(e);
 	}
-	
+
 }
