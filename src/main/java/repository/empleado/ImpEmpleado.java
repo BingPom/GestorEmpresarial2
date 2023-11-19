@@ -123,7 +123,9 @@ public class ImpEmpleado implements EmpleadoRepository {
 		manager.open();
 
 		try {
-			return e.addProyecto(p);
+			e.addProyecto(p);
+			manager.getTransaction().commit();
+			return true;
 		} catch (Exception f) {
 			if (manager.getTransaction() != null && manager.getTransaction().isActive())
 				manager.getTransaction().rollback();
@@ -140,7 +142,9 @@ public class ImpEmpleado implements EmpleadoRepository {
 		manager.open();
 
 		try {
-			return e.removeEmpleado(p);
+			e.removeEmpleado(p);
+			manager.getTransaction().commit();
+			return true;
 		} catch (Exception f) {
 			if (manager.getTransaction() != null && manager.getTransaction().isActive())
 				manager.getTransaction().rollback();

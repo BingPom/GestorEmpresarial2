@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import model.Empleado;
+import repository.departamento.ImpDepartamento;
 import repository.empleado.ImpEmpleado;
 import view.EmpleadosView;
 
@@ -13,9 +14,11 @@ public class EmpleadoController {
 	private final Logger logger = Logger.getLogger(this.getClass().getName());
 
 	private final ImpEmpleado repo;
+	private final ImpDepartamento dpt;
 
 	public EmpleadoController() {
 		repo = new ImpEmpleado();
+		dpt = new ImpDepartamento();
 	}
 
 	public void menu() {
@@ -89,6 +92,11 @@ public class EmpleadoController {
 		Empleado e = null;
 		if (entity.isPresent()) {
 			e = EmpleadosView.modificar(entity.get());
+
+			// se obtiene el departamento de la base de datos
+			if (e.getDepartamento() != null && dpt.findById(e.getDepartamento().getId()).isPresent())
+				e.setDepartamento(dpt.findById(e.getDepartamento().getId()).get());
+
 			updated = repo.update(e);
 		}
 		EmpleadosView.result(updated ? "Modificado" : "No se ha podido modificar");

@@ -79,4 +79,10 @@ public class Departamento {
 		return empleados.remove(e);
 	}
 
+	public void removeAllEmpleados() {
+		for (Empleado e : empleados) {
+			e.setDepartamento(null);
+		}
+	}
+
 }

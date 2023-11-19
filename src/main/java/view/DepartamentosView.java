@@ -25,7 +25,7 @@ public class DepartamentosView {
 		return d;
 	}
 
-	static public Departamento modificar(Departamento d) {
+	static public Departamento modify(Departamento d) {
 		if (d == null) {
 			IO.println("No se ha encontrado el departamento");
 			return null;
@@ -43,17 +43,17 @@ public class DepartamentosView {
 		return d;
 	}
 
-	static public String buscarPorInicioDelNombre() {
+	static public String findByNameStart() {
 		IO.print("El nombre empieza por ? ");
 		return IO.readString();
 	}
 
-	static public int buscarPorCodigo() {
+	static public int findById() {
 		IO.print("Código ? ");
 		return IO.readInt();
 	}
 
-	static public void mostrar(Departamento d) {
+	static public void show(Departamento d) {
 		if (d == null) {
 			return;
 		}
@@ -64,7 +64,7 @@ public class DepartamentosView {
 		}
 	}
 
-	static public void mostrar(List<Departamento> list) {
+	static public void show(List<Departamento> list) {
 		for (Departamento d : list) {
 			IO.println(d.show());
 		}

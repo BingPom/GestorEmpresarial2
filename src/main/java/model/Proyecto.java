@@ -33,26 +33,46 @@ public class Proyecto {
 
 	@ManyToMany(mappedBy = "proyectos")
 	@Builder.Default
-	private Set<Empleado> empleados=new HashSet<Empleado>();
+	private Set<Empleado> empleados = new HashSet<Empleado>();
 
 	@Override
 	public String toString() {
 		List<String> emps = empleados.stream().map(e -> e.getId().toString()).sorted().toList();
 		return String.format("[%d,%s,%s]", id, nombre, emps);
 	}
-	
+
+	/**
+	 * Devuelve representación de un proyecto
+	 * 
+	 * @return string
+	 */
+	public String show() {
+		if (id == 0) {
+			return "no proyecto!!!";
+		}
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("%2d:%-20s:empleados -> ", id, nombre));
+
+		for (Empleado e : empleados) {
+			sb.append(String.format("[%2d:%s]\n", e.getId(), e.getNombre()));
+		}
+
+		return sb.toString();
+	}
+
 	public Boolean addEmpleado(Empleado e) {
 		if (this.getEmpleados().contains(e) || e.getProyectos().contains(this)) {
 			return false;
 		}
 		return this.empleados.add(e) && e.getProyectos().add(this);
 	}
-	
+
 	public Boolean removeEmpleado(Empleado e) {
 		if (this.getEmpleados().contains(e) || e.getProyectos().contains(this)) {
 			return false;
 		}
 		return this.empleados.remove(e) && e.getProyectos().remove(this);
 	}
-	
+
 }

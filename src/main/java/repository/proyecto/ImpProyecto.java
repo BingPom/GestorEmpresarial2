@@ -59,6 +59,19 @@ public class ImpProyecto implements ProyectoRepository {
 		return proyecto;
 	}
 
+	public List<Proyecto> findByName(String str) {
+		logger.info("findByName");
+		HibernateManager manager = HibernateManager.getInstance();
+		manager.open();
+
+		TypedQuery<Proyecto> query = manager.getManager().createNamedQuery("Proyecto.findByName", Proyecto.class)
+				.setParameter("nombre", str);
+		List<Proyecto> list = query.getResultList();
+		manager.close();
+
+		return list;
+	}
+
 	@Override
 	public Boolean update(Proyecto entity) {
 		logger.info("create");
