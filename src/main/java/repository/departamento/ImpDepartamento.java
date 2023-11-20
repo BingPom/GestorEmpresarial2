@@ -125,7 +125,12 @@ public class ImpDepartamento implements DepartamentoRepository {
 		manager.open();
 
 		try {
-			return d.addEmpleado(e);
+			manager.getTransaction().begin();
+			d.addEmpleado(e);
+			manager.getManager().merge(e);
+			// manager.getManager().merge(d);
+			manager.getTransaction().commit();
+			return true;
 		} catch (Exception f) {
 			if (manager.getTransaction() != null && manager.getTransaction().isActive())
 				manager.getTransaction().rollback();
@@ -143,7 +148,10 @@ public class ImpDepartamento implements DepartamentoRepository {
 		manager.open();
 
 		try {
-			return d.removeEmpleado(e);
+			manager.getTransaction().begin();
+			d.removeEmpleado(e);
+			manager.getTransaction().commit();
+			return true;
 		} catch (Exception f) {
 			if (manager.getTransaction() != null && manager.getTransaction().isActive())
 				manager.getTransaction().rollback();

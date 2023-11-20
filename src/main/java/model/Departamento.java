@@ -5,6 +5,7 @@ import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,13 +33,14 @@ public class Departamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
+	
 	String nombre;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "jefe", referencedColumnName = "id")
 	Empleado jefe;
 
-	@OneToMany(mappedBy = "departamento")
+	@OneToMany(mappedBy = "departamento", fetch = FetchType.EAGER)
 	@Builder.Default
 	Set<Empleado> empleados = new HashSet<Empleado>();
 

@@ -85,12 +85,13 @@ public class DepartamentoController {
 		logger.info("Actualizando Departamento con id: " + id);
 		Optional<Departamento> entity = repo.findById(id);
 		Departamento d = null;
+		Optional<Empleado> e = null;
 		if (entity.isPresent()) {
 			d = DepartamentosView.modify(entity.get());
-
+			e = emple.findById(d.getJefe().getId());
 			// para que funcione necesitamos obtener el jefe de la base de datos
-			if (d.getJefe() != null && emple.findById(d.getJefe().getId()).isPresent()) {
-				Empleado jefe = emple.findById(d.getJefe().getId()).get();
+			if (d.getJefe() != null && e.isPresent()) {
+				Empleado jefe = e.get();
 				// primero se inserta en el departamento
 				d.addEmpleado(jefe);
 				// luego se pone como jefe

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,7 +32,7 @@ public class Proyecto {
 
 	private String nombre;
 
-	@ManyToMany(mappedBy = "proyectos")
+	@ManyToMany(mappedBy = "proyectos", fetch = FetchType.EAGER)
 	@Builder.Default
 	private Set<Empleado> empleados = new HashSet<Empleado>();
 
