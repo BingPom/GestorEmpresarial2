@@ -3,14 +3,12 @@ package controller;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import model.Departamento;
 import model.Empleado;
 import repository.departamento.ImpDepartamento;
 import repository.empleado.ImpEmpleado;
 import view.DepartamentosView;
-import view.EmpleadosView;
 
 public class DepartamentoController {
 	private final Logger logger = Logger.getLogger(this.getClass().getName());
@@ -46,11 +44,7 @@ public class DepartamentoController {
 				delete();
 				break;
 			case 7:
-				break;
-			case 8:
-				break;
-			case 9:
-				break;
+				return;
 			default:
 				return;
 			}

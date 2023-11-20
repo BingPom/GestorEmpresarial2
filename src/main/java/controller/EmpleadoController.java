@@ -3,7 +3,6 @@ package controller;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import model.Departamento;
 import model.Empleado;
@@ -11,7 +10,6 @@ import model.Proyecto;
 import repository.departamento.ImpDepartamento;
 import repository.empleado.ImpEmpleado;
 import repository.proyecto.ImpProyecto;
-import view.DepartamentosView;
 import view.EmpleadosView;
 
 public class EmpleadoController {

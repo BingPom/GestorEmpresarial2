@@ -4,10 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import model.Empleado;
 import model.Proyecto;
 import repository.proyecto.ImpProyecto;
-import view.EmpleadosView;
 import view.ProyectoView;
 
 public class ProyectoController {
@@ -42,11 +40,7 @@ public class ProyectoController {
 				delete();
 				break;
 			case 7:
-				break;
-			case 8:
-				break;
-			case 9:
-				break;
+				return;
 			default:
 				return;
 			}
