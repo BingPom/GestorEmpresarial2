@@ -16,16 +16,17 @@ public class EmpleadosView {
 			"5. Actualizar los datos de un empleado", 
 			"6. Borrar un empleado",
 			"7. Añadir un empleado a un departamento",
-			"8. Añadir un empleado a un proyecto",
-			"9. Sacar a un empleado de un proyecto",
-			"10. Salir");
+			"8. Sacar un empleado a un departamento",
+			"9. Añadir un empleado a un proyecto",
+			"10. Sacar a un empleado de un proyecto",
+			"11. Salir");
 	
 	static public Integer getOption() {
 		IO.println("Empleados: " + OPCIONES);
 		return IO.readInt();
 	}
 
-	static public Empleado anadir() {
+	static public Empleado add() {
 		IO.print("Nombre ? ");
 		String nombre = IO.readString();
 		IO.print("Salario ? ");
@@ -37,7 +38,7 @@ public class EmpleadosView {
 		return e;
 	}
 
-	static public Empleado modificar(Empleado e) {
+	static public Empleado modify(Empleado e) {
 		IO.printf("Nombre [%s] ? ", e.getNombre());
 		String nombre = IO.readString();
 		if (!nombre.isBlank()) {
@@ -58,23 +59,23 @@ public class EmpleadosView {
 		return e;
 	}
 
-	static public String buscarPorInicioDelNombre() {
+	static public String findByName() {
 		IO.print("El nombre empieza por ? ");
 		return IO.readString();
 	}
 
-	static public int buscarPorCodigo() {		
+	static public int findById() {		
 		IO.print("Código ? ");
 		return IO.readInt();
 	}
 
-	static public void mostrar(List<Empleado> list) {
+	static public void show(List<Empleado> list) {
 		for (Empleado e : list) {
 			IO.println(e.show());
 		}
 	}
 	
-	static public void mostrar(Empleado e) {
+	static public void show(Empleado e) {
 		if (e == null) {
 			return;
 		}
