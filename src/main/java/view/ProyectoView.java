@@ -23,29 +23,28 @@ public class ProyectoView {
 		return IO.readInt();
 	}
 
-	static public Proyecto anadir() {
+	static public Proyecto add() {
 		IO.print("Nombre ? ");
 		String nombre = IO.readString();
 		Proyecto p = Proyecto.builder().nombre(nombre).build();
 		return p;
 	}
 
-	static public Proyecto modificar(Proyecto p) {
+	static public Proyecto modify(Proyecto p) {
 		IO.printf("Nombre [%s] ? ", p.getNombre());
 		String nombre = IO.readString();
 		if (!nombre.isBlank()) {
 			p.setNombre(nombre);
 		}
-
 		return p;
 	}
 
-	static public int buscarPorCodigo() {
+	static public int findById() {
 		IO.print("Código ? ");
 		return IO.readInt();
 	}
 
-	public static String buscarPorInicioDelNombre() {
+	public static String findByName() {
 		IO.print("El nombre empieza por ? ");
 		return IO.readString();
 	}
