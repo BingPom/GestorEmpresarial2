@@ -110,6 +110,8 @@ public class ImpEmpleado implements EmpleadoRepository {
 				d.removeEmpleado(entity);
 			}
 			
+			entity.removeAllProyectos();
+			
 			manager.getManager().remove(entity);
 			manager.getTransaction().commit();
 

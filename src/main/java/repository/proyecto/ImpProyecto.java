@@ -104,6 +104,9 @@ public class ImpProyecto implements ProyectoRepository {
 		try {
 			manager.getTransaction().begin();
 			entity = manager.getManager().find(Proyecto.class, entity.getId());
+			
+			entity.removeAllEmpleados();
+			
 			manager.getManager().remove(entity);
 			manager.getTransaction().commit();
 
