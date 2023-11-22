@@ -142,7 +142,7 @@ public class ImpEmpleado implements EmpleadoRepository {
 		manager.open();
 
 		try {
-			e.removeEmpleado(p);
+			e.removeProyecto(p);
 			manager.getTransaction().commit();
 			return true;
 		} catch (Exception f) {

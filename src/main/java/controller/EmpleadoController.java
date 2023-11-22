@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import model.Departamento;
 import model.Empleado;
 import model.Proyecto;
-import repository.departamento.ImpDepartamento;
 import repository.empleado.ImpEmpleado;
 import repository.proyecto.ImpProyecto;
 import view.EmpleadosView;
@@ -16,12 +15,10 @@ public class EmpleadoController {
 	private final Logger logger = Logger.getLogger(this.getClass().getName());
 
 	private final ImpEmpleado repo;
-	private final ImpDepartamento dpt;
 	private final ImpProyecto prj;
 
 	public EmpleadoController() {
 		repo = new ImpEmpleado();
-		dpt = new ImpDepartamento();
 		prj = new ImpProyecto();
 	}
 
@@ -105,10 +102,8 @@ public class EmpleadoController {
 		if (entity.isPresent()) {
 			e = EmpleadosView.modify(entity.get());
 
-			// se obtiene el departamento de la base de datos
-			if (e.getDepartamento() != null && dpt.findById(e.getDepartamento().getId()).isPresent())
-				e.setDepartamento(dpt.findById(e.getDepartamento().getId()).get());
-
+			DepartamentoController dptController = new DepartamentoController();
+			dptController.addEmpleado(e);
 			updated = repo.update(e);
 		}
 		EmpleadosView.result(updated ? "Modificado" : "No se ha podido modificar");
@@ -125,31 +120,31 @@ public class EmpleadoController {
 	}
 
 	private void addEmpleadoToDepartamento() {
-		Integer idDepartamento = EmpleadosView.findById(); // Get Departamento Id
-		logger.info("Seleccione qué empleado añadir al departamento con id: " + idDepartamento);
+		logger.info("Seleccione qué empleado añadir al departamento:");
 		Integer idEmpleado = EmpleadosView.findById(); // Get Empleado Id
-		Optional<Departamento> d = dpt.findById(idDepartamento);
+
 		Optional<Empleado> e = repo.findById(idEmpleado);
-		if (d.isPresent() && e.isPresent()) {
-			EmpleadosView.result(dpt.addEmpleado(d.get(), e.get()) ? "Empleado añadido correctamente"
-					: "Error a la hora de añadir el empleado");
-		} else {
-			EmpleadosView.result("Error a la hora de añadir el empleado");
-		}
+
+		DepartamentoController dptController = new DepartamentoController();
+
+		if (e.isPresent())
+			dptController.addEmpleado(e.get());
+		else
+			EmpleadosView.result("Error : no existe el empleado");
 	}
 
 	private void removeEmpleadoOfDepartamento() {
-		Integer idDepartamento = EmpleadosView.findById(); // Get Departamento Id
-		logger.info("Seleccione qué empleado sacacr del departamento con id: " + idDepartamento);
-		Integer idEmpleado = EmpleadosView.findById(); // Get Empleado Id
-		Optional<Departamento> d = dpt.findById(idDepartamento);
-		Optional<Empleado> e = repo.findById(idEmpleado);
-		if (d.isPresent() && e.isPresent()) {
-			EmpleadosView.result(d.get().removeEmpleado(e.get()) ? "Empleado eliminado correctamente"
-					: "Error a la hora de sacar el empleado");
-		} else {
-			EmpleadosView.result("Error a la hora de sacar el empleado");
-		}
+		logger.info("Seleccione qué empleado borrar del departamento:");
+		Integer id = EmpleadosView.findById(); // Get Empleado Id
+
+		Optional<Empleado> e = repo.findById(id);
+
+		DepartamentoController dptController = new DepartamentoController();
+
+		if (e.isPresent())
+			dptController.deleteEmpleado(e.get());
+		else
+			EmpleadosView.result("Error : no existe el empleado");
 	}
 
 	private void addEmpleadoToProyecto() {

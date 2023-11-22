@@ -85,7 +85,7 @@ public class DepartamentoController {
 		logger.info("Actualizando Departamento con id: " + id);
 		Optional<Departamento> entity = repo.findById(id);
 		Departamento d = null;
-		Optional<Empleado> e = null;
+		Optional<Empleado> e;
 		if (entity.isPresent()) {
 			d = DepartamentosView.modify(entity.get());
 			e = emple.findById(d.getJefe().getId());
@@ -113,5 +113,33 @@ public class DepartamentoController {
 			entity.get().removeAllEmpleados();
 		// luego se borra de la DB
 		DepartamentosView.result(repo.delete(entity.get()) ? "Borrado" : "No se ha podido borrar");
+	}
+
+	protected void addEmpleado(Empleado e) {
+		logger.info("Seleccione qué departamento:");
+		Integer idDepartamento = DepartamentosView.findById(); // Get Departamento Id
+		Optional<Departamento> d = repo.findById(idDepartamento);
+
+		if (d.isPresent()) {
+			DepartamentosView.result(repo.addEmpleado(d.get(), e) ? "Empleado añadido correctamente"
+					: "Error a la hora de añadir el empleado");
+		} else
+			DepartamentosView.result("No hay cambios");
+	}
+
+	protected void deleteEmpleado(Empleado e) {
+		logger.info("Seleccione qué departamento:");
+		Integer id = DepartamentosView.findById(); // Get Departamento Id
+		Optional<Departamento> d = repo.findById(id);
+
+		if (d.isPresent()) {
+			DepartamentosView.result(repo.removeEmpleado(d.get(), e) ? "Empleado borrado correctamente"
+					: "Error a la hora de borrar el empleado");
+		} else
+			DepartamentosView.result("Error : no existe el departamento");
+	}
+
+	protected Departamento findById() {
+		return null;
 	}
 }

@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -53,10 +54,10 @@ public class Proyecto {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%2d:%-20s:empleados -> ", id, nombre));
+		sb.append(String.format("%2d : %-20s : empleados -> ", id, nombre));
 
 		for (Empleado e : empleados) {
-			sb.append(String.format("[%2d:%s]\n", e.getId(), e.getNombre()));
+			sb.append(String.format("[%2d: %s]\n", e.getId(), e.getNombre()));
 		}
 
 		return sb.toString();
@@ -74,6 +75,11 @@ public class Proyecto {
 			return false;
 		}
 		return this.empleados.remove(e) && e.getProyectos().remove(this);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 
 }

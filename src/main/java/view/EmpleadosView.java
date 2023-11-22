@@ -3,26 +3,25 @@ package view;
 import java.util.List;
 
 import io.IO;
-import model.Departamento;
 import model.Empleado;
 
 public class EmpleadosView {
-	
-	static final List<String> OPCIONES = List.of( 
-			"1. Buscar por Id", 
-			"2. Buscar por nombre", 
-			"3. Listar todos",
-			"4. Añadir un empleado", 
-			"5. Actualizar los datos de un empleado", 
-			"6. Borrar un empleado",
-			"7. Añadir un empleado a un departamento",
-			"8. Sacar un empleado a un departamento",
-			"9. Añadir un empleado a un proyecto",
-			"10. Sacar a un empleado de un proyecto",
-			"11. Salir");
-	
+
+	static final List<String> OPCIONES = List.of("1. Buscar por Id\n",
+			"2. Buscar por nombre\n",
+			"3. Listar todos\n",
+			"4. Añadir un empleado\n",
+			"5. Actualizar los datos de un empleado\n",
+			"6. Borrar un empleado\n",
+			"7. Añadir un empleado a un departamento\n",
+			"8. Sacar un empleado a un departamento\n",
+			"9. Añadir un empleado a un proyecto\n",
+			"10. Sacar a un empleado de un proyecto\n",
+			"11. Salir\n");
+
 	static public Integer getOption() {
-		IO.println("Empleados: " + OPCIONES);
+		IO.println("Empleados:");
+		OPCIONES.forEach(o -> IO.print(o));
 		return IO.readInt();
 	}
 
@@ -31,10 +30,7 @@ public class EmpleadosView {
 		String nombre = IO.readString();
 		IO.print("Salario ? ");
 		Double salario = IO.readDoubleOrNull();
-		Empleado e = Empleado.builder()
-				.nombre(nombre)
-				.salario(salario)
-				.build();
+		Empleado e = Empleado.builder().nombre(nombre).salario(salario).build();
 		return e;
 	}
 
@@ -50,12 +46,6 @@ public class EmpleadosView {
 			e.setSalario(salario);
 		}
 
-		Departamento d = e.getDepartamento();
-		IO.printf("Departamento [%s] ? ", d == null ? "sin departamento!!!" : d.show());
-		Integer departamento = IO.readIntOrNull();
-		if (departamento != null) {
-			e.setDepartamento(Departamento.builder().id(departamento).build());
-		}
 		return e;
 	}
 
@@ -64,7 +54,7 @@ public class EmpleadosView {
 		return IO.readString();
 	}
 
-	static public int findById() {		
+	static public int findById() {
 		IO.print("Código ? ");
 		return IO.readInt();
 	}
@@ -74,17 +64,16 @@ public class EmpleadosView {
 			IO.println(e.show());
 		}
 	}
-	
+
 	static public void show(Empleado e) {
 		if (e == null) {
 			return;
 		}
 		IO.println(e.show());
 	}
-	
+
 	static public void result(String msg) {
 		IO.println(msg);
 	}
 
 }
-

@@ -18,7 +18,8 @@ public class ProyectoView {
 			"7. Salir");
 
 	static public Integer getOption() {
-		IO.println("Empleados: " + OPCIONES);
+		IO.println("Proyectos: " + OPCIONES);
+		OPCIONES.forEach(o -> IO.println(o));
 		return IO.readInt();
 	}
 
@@ -49,13 +50,13 @@ public class ProyectoView {
 		return IO.readString();
 	}
 
-	static public void mostrar(List<Proyecto> list) {
+	static public void show(List<Proyecto> list) {
 		for (Proyecto p : list) {
 			IO.println(p.show());
 		}
 	}
 
-	static public void mostrar(Proyecto p) {
+	static public void show(Proyecto p) {
 		if (p == null) {
 			return;
 		}

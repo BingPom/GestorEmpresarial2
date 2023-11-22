@@ -9,16 +9,17 @@ import model.Empleado;
 public class DepartamentosView {
 
 	static final List<String> OPCIONES = List.of(
-			"1. Buscar por Id", 
-			"2. Buscar por nombre", 
-			"3. Listar todos",
-			"4. Añadir un departamento", 
-			"5. Actualizar los datos de un departamentos", 
-			"6. Borrar un departamento",
-			"7. Salir");
+			"1. Buscar por Id\n", 
+			"2. Buscar por nombre\n", 
+			"3. Listar todos\n",
+			"4. Añadir un departamento\n", 
+			"5. Actualizar los datos de un departamento\n", 
+			"6. Borrar un departamento\n",
+			"7. Salir\n");
 
 	static public Integer getOption() {
-		IO.println("Departamentos: " + OPCIONES);
+		IO.println("Departamentos:");
+		OPCIONES.forEach(o -> IO.print(o));
 		return IO.readInt();
 	}
 

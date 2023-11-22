@@ -1,6 +1,8 @@
 package model;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -33,7 +35,7 @@ public class Departamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
-	
+
 	String nombre;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -54,8 +56,10 @@ public class Departamento {
 			return "no departamento!!!";
 		}
 
+		List<String> emps = empleados.stream().map(e -> e.getNombre()).sorted().toList();
+
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%2d:%-20s:", id, nombre));
+		sb.append(String.format("%2d : %-20s : empleados -> %s : ", id, nombre, emps));
 		if (jefe == null || jefe.getNombre() == null) {
 			sb.append("sin jefe!!");
 		} else {
@@ -67,17 +71,25 @@ public class Departamento {
 
 	public Boolean addEmpleado(Empleado e) {
 //		If it has a Departamento, its first removed from that departamento
-		if (e.getDepartamento() != null) {
-			e.getDepartamento().getEmpleados().remove(e);
-		}
+		if (e.getDepartamento() != this) { // Verifica si el empleado no pertenece ya a este departamento
+			if (e.getDepartamento() != null) {
+				e.getDepartamento().removeEmpleado(e);
+			}
 //		Added to this departamento
-		e.setDepartamento(this);
-		return empleados.add(e);
+			e.setDepartamento(this);
+			return empleados.add(e);
+
+		}
+		return false;
+
 	}
 
 	public Boolean removeEmpleado(Empleado e) {
-		e.setDepartamento(null);
-		return empleados.remove(e);
+		if (e.getDepartamento() == this) {
+			e.setDepartamento(null);
+			return empleados.remove(e);
+		}
+		return false;
 	}
 
 	public void removeAllEmpleados() {
@@ -86,4 +98,8 @@ public class Departamento {
 		}
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 }

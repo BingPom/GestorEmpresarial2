@@ -63,15 +63,16 @@ public class ProyectoController {
 	}
 
 	private void getAll() {
-		// TODO Auto-generated method stub
-
+		logger.info("Obteniendo Proyectos");
+		List<Proyecto> list = repo.findAll();
+		ProyectoView.show(list);
 	}
 
 	private void getByStartsName() {
 		String inicio = ProyectoView.buscarPorInicioDelNombre();
 		logger.info("Obteniendo Empleados que empiezan por " + inicio);
 		List<Proyecto> list = repo.findByName(inicio + "%");
-		ProyectoView.mostrar(list);
+		ProyectoView.show(list);
 	}
 
 	private void getById() {
@@ -80,7 +81,7 @@ public class ProyectoController {
 		Optional<Proyecto> entity = repo.findById(id);
 
 		if (entity.isPresent()) {
-			ProyectoView.mostrar(entity.get());
+			ProyectoView.show(entity.get());
 		}
 	}
 

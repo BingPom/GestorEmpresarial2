@@ -1,6 +1,8 @@
 package model;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -57,13 +59,15 @@ public class Empleado {
 
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(String.format("%2d:%20s:%4.2f:", id, nombre, salario));
-		sb.append(":");
+		sb.append(String.format("%2d : %20s : %4.2f : ", id, nombre, salario));
 		if (departamento == null || departamento.getNombre() == null) {
 			sb.append("sin departamento!!");
 		} else {
-			sb.append(String.format("Departamento [%2d:%s]", departamento.getId(), departamento.getNombre()));
+			sb.append(String.format("Departamento [%2d : %s] : ", departamento.getId(), departamento.getNombre()));
 		}
+
+		List<String> prjcts = proyectos.stream().map(p -> p.getNombre()).sorted().toList();
+		sb.append(String.format("proyectos -> %s", prjcts));
 
 		return sb.toString();
 	}
@@ -75,11 +79,16 @@ public class Empleado {
 		return this.proyectos.add(p) && p.getEmpleados().add(this);
 	}
 
-	public Boolean removeEmpleado(Proyecto p) {
-		if (p.getEmpleados().contains(this) || this.getProyectos().contains(p)) {
+	public Boolean removeProyecto(Proyecto p) {
+		if (!p.getEmpleados().contains(this) && !this.getProyectos().contains(p)) {
 			return false;
 		}
-		return this.proyectos.remove(p) && p.getEmpleados().remove(this);
+		return this.proyectos.remove(p) || p.getEmpleados().remove(this);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 
 }

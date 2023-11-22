@@ -126,9 +126,14 @@ public class ImpDepartamento implements DepartamentoRepository {
 
 		try {
 			manager.getTransaction().begin();
-			d.addEmpleado(e);
-			manager.getManager().merge(e);
-			// manager.getManager().merge(d);
+
+			// recuperamos de la base de datos
+			d = manager.getManager().find(Departamento.class, d.getId());
+			e = manager.getManager().find(Empleado.class, e.getId());
+			
+			// ahora ya hacemos cambios
+			if (!d.addEmpleado(e))
+				return false;
 			manager.getTransaction().commit();
 			return true;
 		} catch (Exception f) {
@@ -138,7 +143,6 @@ public class ImpDepartamento implements DepartamentoRepository {
 		} finally {
 			manager.close();
 		}
-
 	}
 
 	public Boolean removeEmpleado(Departamento d, Empleado e) {
