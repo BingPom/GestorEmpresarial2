@@ -48,18 +48,34 @@ public class ProyectoController {
 	}
 
 	private void delete() {
-		// TODO Auto-generated method stub
-
+		Integer id = ProyectoView.findById();
+		logger.info("Eliminando Proyecto con id: " + id);
+		Optional<Proyecto> entity = repo.findById(id);
+		if (entity.isPresent())
+			// primero se pone a null el departamento de los empleados
+			entity.get().removeAllEmpleados();
+		// luego se borra de la DB
+		ProyectoView.result(repo.delete(entity.get()) ? "Borrado" : "No se ha podido borrar");
 	}
 
 	private void update() {
-		// TODO Auto-generated method stub
-
+		boolean updated = false;
+		Integer id = ProyectoView.findById();
+		logger.info("Actualizando Proyecto con id: " + id);
+		Optional<Proyecto> entity = repo.findById(id);
+		Proyecto p = null;
+		if (entity.isPresent()) {
+			p = ProyectoView.modify(entity.get());
+			// actualiza la DB
+			updated = repo.update(p);
+		}
+		ProyectoView.result(updated ? "Modificado" : "No se ha podido modificar");
 	}
 
 	private void create() {
-		// TODO Auto-generated method stub
-
+		logger.info("Creando Proyecto");
+		Proyecto entity = ProyectoView.add();
+		ProyectoView.result(repo.create(entity) ? "Añadido" : "No se ha podido añadir");
 	}
 
 	private void getAll() {
@@ -69,14 +85,14 @@ public class ProyectoController {
 	}
 
 	private void getByStartsName() {
-		String inicio = ProyectoView.buscarPorInicioDelNombre();
+		String inicio = ProyectoView.findByName();
 		logger.info("Obteniendo Empleados que empiezan por " + inicio);
 		List<Proyecto> list = repo.findByName(inicio + "%");
 		ProyectoView.show(list);
 	}
 
 	private void getById() {
-		Integer id = ProyectoView.buscarPorCodigo();
+		Integer id = ProyectoView.findById();
 		logger.info("Obteniendo Proyecto con id: " + id);
 		Optional<Proyecto> entity = repo.findById(id);
 
