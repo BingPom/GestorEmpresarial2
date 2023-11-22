@@ -76,10 +76,28 @@ public class Proyecto {
 		}
 		return this.empleados.remove(e) && e.getProyectos().remove(this);
 	}
+	
+	public void removeAllEmpleados() {
+		for (Empleado e : empleados) {
+			e.setDepartamento(null);
+		}
+	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Proyecto other = (Proyecto) obj;
+		return Objects.equals(id, other.id);
 	}
 
 }
