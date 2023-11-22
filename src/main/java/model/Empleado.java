@@ -61,7 +61,7 @@ public class Empleado {
 
 		sb.append(String.format("%2d : %20s : %4.2f : ", id, nombre, salario));
 		if (departamento == null || departamento.getNombre() == null) {
-			sb.append("sin departamento!!");
+			sb.append("sin departamento!! : ");
 		} else {
 			sb.append(String.format("Departamento [%2d : %s] : ", departamento.getId(), departamento.getNombre()));
 		}

@@ -17,7 +17,7 @@
 		<properties>
 			<!-- Para iniciar la conexion -->
 			<property name="hibernate.connection.url"
-				value="jdbc:mariadb://172.21.176.1:3306/empresa" />
+				value="jdbc:mariadb://172.21.192.1:3306/empresa" />
 			<property name="hibernate.connection.driver_class"
 				value="org.mariadb.jdbc.Driver" />
 			<property name="hibernate.connection.user" value="root" />

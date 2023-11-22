@@ -18,7 +18,7 @@ public class ProyectoView {
 			"7. Salir");
 
 	static public Integer getOption() {
-		IO.println("Proyectos: " + OPCIONES);
+		IO.println("Proyectos: ");
 		OPCIONES.forEach(o -> IO.println(o));
 		return IO.readInt();
 	}
