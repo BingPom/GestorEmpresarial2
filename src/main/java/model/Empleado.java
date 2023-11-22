@@ -86,6 +86,12 @@ public class Empleado {
 		return this.proyectos.remove(p) || p.getEmpleados().remove(this);
 	}
 
+	public void removeAllProyectos() {
+		for (Proyecto p : proyectos) {
+			p.removeEmpleado(this);
+		}
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import dao.HibernateManager;
 import jakarta.persistence.TypedQuery;
+import model.Departamento;
 import model.Empleado;
 import model.Proyecto;
 
@@ -103,6 +104,12 @@ public class ImpEmpleado implements EmpleadoRepository {
 		try {
 			manager.getTransaction().begin();
 			entity = manager.getManager().find(Empleado.class, entity.getId());
+			
+			if (entity.getDepartamento() != null) {
+				Departamento d = manager.getManager().find(Departamento.class, entity.getDepartamento().getId());
+				d.removeEmpleado(entity);
+			}
+			
 			manager.getManager().remove(entity);
 			manager.getTransaction().commit();
 

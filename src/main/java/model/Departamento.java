@@ -94,7 +94,7 @@ public class Departamento {
 
 	public void removeAllEmpleados() {
 		for (Empleado e : empleados) {
-			e.setDepartamento(null);
+			removeEmpleado(e);
 		}
 	}
 
