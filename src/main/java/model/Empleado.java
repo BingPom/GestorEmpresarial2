@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
@@ -43,7 +44,12 @@ public class Empleado {
 	@JoinColumn(name = "departamento")
 	Departamento departamento;
 
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "Empleado_Proyecto",
+			joinColumns = @JoinColumn(name = "empleados_id"),
+			inverseJoinColumns = @JoinColumn(name = "proyectos_id")
+		)
 	@Builder.Default
 	Set<Proyecto> proyectos = new HashSet<Proyecto>();
 

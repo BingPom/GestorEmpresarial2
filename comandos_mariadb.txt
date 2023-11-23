@@ -1,0 +1,15 @@
+Login
+mariadb -u root --password='pass'
+
+Variables Mariadb
+Connect: 172.21.192.1:3306
+Port: 3306
+MYSQL_ROOT_PASSWORD=pass
+
+Variables PHPMyAdmin
+Connect: 172.21.192.1:8080
+Port: 8080
+PMA_ARBITRARY=1
+PMA_HOST=172.21.192.1     
+PMA_PORT=3306  
+PMA_VERBOSE='mariadb'

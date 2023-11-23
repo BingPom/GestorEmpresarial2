@@ -127,7 +127,17 @@ public class ImpProyecto implements ProyectoRepository {
 		manager.open();
 
 		try {
-			return p.addEmpleado(e);
+			manager.getTransaction().begin();
+			
+			// recuperamos de la base de datos
+			p = manager.getManager().find(Proyecto.class, p.getId());
+			e = manager.getManager().find(Empleado.class, e.getId());
+						
+			// ahora ya hacemos cambios
+			if (!p.addEmpleado(e))
+				return false;
+			manager.getTransaction().commit();
+			return true;
 		} catch (Exception f) {
 			if (manager.getTransaction() != null && manager.getTransaction().isActive())
 				manager.getTransaction().rollback();
@@ -144,7 +154,17 @@ public class ImpProyecto implements ProyectoRepository {
 		manager.open();
 
 		try {
-			return p.removeEmpleado(e);
+			manager.getTransaction().begin();
+			
+			// recuperamos de la base de datos
+			p = manager.getManager().find(Proyecto.class, p.getId());
+			e = manager.getManager().find(Empleado.class, e.getId());
+						
+			// ahora ya hacemos cambios
+			if (!p.removeEmpleado(e))
+				return false;
+			manager.getTransaction().commit();
+			return true;
 		} catch (Exception f) {
 			if (manager.getTransaction() != null && manager.getTransaction().isActive())
 				manager.getTransaction().rollback();
