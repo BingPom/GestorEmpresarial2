@@ -79,10 +79,13 @@ public class Empleado {
 	}
 
 	public Boolean addProyecto(Proyecto p) {
-		if (p.getEmpleados().contains(this) || this.getProyectos().contains(p)) {
-			return false;
+		if (this.getProyectos().contains(p) || p.getEmpleados().contains(this)) {
+			if (this.getProyectos().add(p)) {
+				p.getEmpleados().add(this);
+				return true;
+			}
 		}
-		return this.proyectos.add(p) && p.getEmpleados().add(this);
+		return false;
 	}
 
 	public Boolean removeProyecto(Proyecto p) {

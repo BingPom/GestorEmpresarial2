@@ -157,7 +157,14 @@ public class ImpDepartamento implements DepartamentoRepository {
 
 		try {
 			manager.getTransaction().begin();
-			d.removeEmpleado(e);
+			
+			// recuperamos de la base de datos
+			d = manager.getManager().find(Departamento.class, d.getId());
+			e = manager.getManager().find(Empleado.class, e.getId());
+			
+			if (!d.removeEmpleado(e)) 
+				return false;
+			
 			manager.getTransaction().commit();
 			return true;
 		} catch (Exception f) {

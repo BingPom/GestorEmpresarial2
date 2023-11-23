@@ -153,7 +153,7 @@ public class EmpleadoController {
 		Optional<Proyecto> p = prj.findById(idProyecto);
 		Optional<Empleado> e = repo.findById(idEmpleado);
 		if (p.isPresent() && e.isPresent()) {
-			EmpleadosView.result(p.get().addEmpleado(e.get()) ? "Empleado añadido correctamente"
+			EmpleadosView.result(prj.addEmpleado(p.get(), e.get()) ? "Empleado añadido correctamente"
 					: "Error a la hora de añadir el empleado");
 		} else {
 			EmpleadosView.result("Error a la hora de añadir el empleado");
@@ -167,7 +167,7 @@ public class EmpleadoController {
 		Optional<Proyecto> p = prj.findById(idProyecto);
 		Optional<Empleado> e = repo.findById(idEmpleado);
 		if (p.isPresent() && e.isPresent()) {
-			EmpleadosView.result(p.get().removeEmpleado(e.get()) ? "Empleado eliminado correctamente"
+			EmpleadosView.result(prj.removeEmpleado(p.get(), e.get()) ? "Empleado eliminado correctamente"
 					: "Error a la hora de sacar el empleado");
 		} else {
 			EmpleadosView.result("Error a la hora de sacar el empleado");

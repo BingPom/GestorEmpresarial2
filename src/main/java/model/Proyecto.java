@@ -57,21 +57,24 @@ public class Proyecto {
 		sb.append(String.format("%2d : %-20s : empleados -> ", id, nombre));
 
 		for (Empleado e : empleados) {
-			sb.append(String.format("[%2d: %s]\n", e.getId(), e.getNombre()));
+			sb.append(String.format("[%2d : %s] ", e.getId(), e.getNombre()));
 		}
 
 		return sb.toString();
 	}
 
 	public Boolean addEmpleado(Empleado e) {
-		if (this.getEmpleados().contains(e) || e.getProyectos().contains(this)) {
-			return false;
+		if (!this.getEmpleados().contains(e) || !e.getProyectos().contains(this)) {
+			if (this.getEmpleados().add(e)) {
+				e.getProyectos().add(this);
+				return true;
+			}
 		}
-		return this.empleados.add(e) && e.getProyectos().add(this);
+		return false;
 	}
 
 	public Boolean removeEmpleado(Empleado e) {
-		if (this.getEmpleados().contains(e) || e.getProyectos().contains(this)) {
+		if (!this.getEmpleados().contains(e) || !e.getProyectos().contains(this)) {
 			return false;
 		}
 		return this.empleados.remove(e) && e.getProyectos().remove(this);
@@ -79,7 +82,7 @@ public class Proyecto {
 	
 	public void removeAllEmpleados() {
 		for (Empleado e : empleados) {
-			e.setDepartamento(null);
+			e.removeProyecto(this);
 		}
 	}
 

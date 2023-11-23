@@ -85,8 +85,11 @@ public class Departamento {
 	}
 
 	public Boolean removeEmpleado(Empleado e) {
+		if (e == null) {
+			return true;
+		}
 		if (e.getDepartamento() == this) {
-			if (this.getJefe().equals(e)) {
+			if (this.getJefe() != null && this.getJefe().equals(e)) {
 				this.setJefe(null);
 			}
 			e.setDepartamento(null);
